@@ -5,6 +5,8 @@ layout: home
 
 This will be where our documentaiton lives.
 
+For theme documentation, see [https://just-the-docs.github.io/just-the-docs/](https://just-the-docs.github.io/just-the-docs/)
+
 ----
 
 
