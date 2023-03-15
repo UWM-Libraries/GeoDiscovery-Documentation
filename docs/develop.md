@@ -10,7 +10,7 @@ nav_order: 2
 ## Create a new branch
 
 ```bash
-git branch _new-branch-name_
+git branch new-branch-name
 ```
 
 {: .note-title }
@@ -20,15 +20,21 @@ git branch _new-branch-name_
 >
 > For new features use:
 > 
-> `feature/_feature-name_`
+> `feature/feature-name`
+>
+> e.g. `feature/new-button`
 > 
 > For bug fixes use:
 > 
-> `bugfix/_bug-name_`
+> `bugfix/bug-name`
+>
+> e.g. `bugfix/homepage-map`
 > 
 > Pull requests automatically created by Dependabot will use:
 >
-> `dependabot/bundler/_gem-being-updated_`
+> `dependabot/bundler/gem-being-updated`
+>
+> .e.g `dependabot/bundler/sidekiq-7.0.7`
 > 
 > Using these consistently will help us keep track of branches and why they were created
 
