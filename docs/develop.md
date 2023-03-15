@@ -70,8 +70,8 @@ Assign a reviewer. It's a good idea to have someone else inspect any changes you
 The review process might look like this:
 
 1. Pull the new feature branch to your local machine
-1. Follow the instructions to [deploy to your local machine](#ADDLINK)
-1. Run the [linter](#ADDLINK) and [test suite](#ADDLINK)
+1. Follow the instructions to [deploy to your local machine](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#locally)
+1. Run the [linter](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#locally) and [test suite](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/develop.html#run-the-test-suite)
 1. Start the application and make sure it works
 1. Review the changed files from the pull request in GitHub and make any comments.
 1. Make revisions or encourage the person who opened the PR to make changes.
@@ -83,7 +83,7 @@ Once the pull request is merged, we should [tag a release](https://git-scm.com/b
 
 ## Deploy
 
-Deploy to development environment for further testing.
+[Deploy to development](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#deploy-to-the-liblamp-dev-or-liblamp) environment for further testing.
 
 
 
