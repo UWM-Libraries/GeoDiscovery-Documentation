@@ -1,3 +1,8 @@
+---
+title: Stack and Dependencies
+layout: default
+nav_order: 1.1
+---
 # Stack and Dependencies
 
 ## GeoBlacklight
