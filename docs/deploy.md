@@ -2,6 +2,7 @@
 layout: default
 title: Deploy The Application
 nav_exclude: false
+nav_order: 3
 ---
 
 # Deploy the application

@@ -1,6 +1,7 @@
 ---
-title: GeoDiscovery Documentation
+title: Home
 layout: home
+nav_order: 1
 ---
 
 # AGSL GeoDiscovery Geoportal Documentation Site

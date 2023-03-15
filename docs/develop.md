@@ -2,6 +2,7 @@
 layout: default
 title: Feature Development
 nav_exclude: false
+nav_order: 2
 ---
 
 # Feature Development Workflow
