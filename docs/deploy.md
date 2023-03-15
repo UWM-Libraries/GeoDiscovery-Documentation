@@ -1,3 +1,9 @@
+---
+layout: default
+title: Deploy application
+nav_exclude: false
+---
+
 # Deploy the application
 
 Deploying locally will be `bundle exec rake uwm:server`
