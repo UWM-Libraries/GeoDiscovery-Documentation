@@ -10,8 +10,27 @@ nav_order: 2
 ## Create a new branch
 
 ```bash
-git branch feature/*new-feature-name*
+git branch _new-branch-name_
 ```
+
+{: .note-title }
+> Branch Names
+> 
+> Use consistent branch naming for more opaque pull requests and flow.
+>
+> For new features use:
+> 
+> `feature/_feature-name_`
+> 
+> For bug fixes use:
+> 
+> `bugfix/_bug-name_`
+> 
+> Pull requests automatically created by Dependabot will use:
+>
+> `dependabot/bundler/_gem-being-updated_`
+> 
+> Using these consistently will help us keep track of branches and why they were created
 
 ## Make changes in the newly created branch
 
