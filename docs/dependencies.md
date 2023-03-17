@@ -26,6 +26,12 @@ An open-source, Ruby on Rails engine that provides a basic discovery interface f
 
 Sever-side web application framework written in Ruby that uses the MVC Framework (model-view-controller). Popular websites like GitHub, Twitch, and AirBNB are built using Ruby on Rails.
 
+## Bundler
+
+[bundler.io](https://bundler.io/)
+
+Bundler manages an application's dependencies through its entire life, across many machines, systematically and repeatably. 
+[Read more](https://rubygems.org/gems/bundler)
 
 ## Apache Solr
 
@@ -79,6 +85,10 @@ Since we are deploying from a local computer, capistrano is not actually install
 [Sprockets GitHub Repo](https://github.com/rails/sprockets)
 
 Sprockets is a Ruby library for compiling and serving web assets. It features declarative dependency management for JavaScript and CSS assets, as well as a powerful preprocessor pipeline that allows you to write assets in languages like CoffeeScript, Sass and SCSS.
+
+Sprockets is a gem from the RoR community that helps you to bundle your JS and CSS together in the project.
+It's an old gem and it's as of Rails version 7 being phased out. It's the one GeoBlacklight currently uses.
+See the Ruby on [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html) guides for more info.
 
 ## sqlite3
 
