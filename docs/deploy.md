@@ -71,11 +71,44 @@ bundle exec rake uwm:server
 
 ## Deploy to the liblamp-dev or liblamp:
 
+1. Create a SSL Key pair or check if you have existing ssh keys
+
+    ```bash
+    ls -al ~/.ssh
+    ```
+
+    If you get `...no such file or directory` you likley have no SSH keys set up.
+
+    ```bash
+    ssh-keygen -t rsa -C "your@email.address"
+    ```
+
+    Save the keys in the default directory, likley `~/.ssh`
+
+
 1. Deploy Public SSL Key to server to enable password-less login.
-    * Run `eval "$(ssh-agent -s)"` This starts the ssh-agent.
-    * Run `ssh-add ~/.ssh/id_rsa` This makes Capistrano recognize your SSL key. If this isn’t run, you’ll get an error: “fatal: Could not read from remote repository.” [More Info](https://forum.upcase.com/t/capistrano-cannot-read-from-remote-repository/3009/3)
-    * Add public key to /home/ad.uwm.edu/<Username>/.ssh/authorized_keys as the geoblacklight user on the remote server
-    <p>
+
+    Start the ssh-agent:
+
+    ```bash
+    eval "$(ssh-agent -s)"
+    ```
+    
+    Adding SSH private keys into the SSH authentication agent:
+
+    ```bash
+    ssh-add ~/.ssh/id_rsa
+    ```
+    
+    {: .note }
+    This makes Capistrano recognize your SSL key. If this isn’t run, you’ll get an error: “fatal: Could not read from remote repository.” [More Info](https://forum.upcase.com/t/capistrano-cannot-read-from-remote-repository/3009/3)
+
+    ```bash
+    cat ~/.ssh/id_rsa.pub
+    ```
+
+    Add public key to /home/ad.uwm.edu/<Username>/.ssh/authorized_keys as the geoblacklight user on the remote server
+    
 1. Set up shared directory to add database and solr credentials on the server that is hosting the instance of software (First time only)
 
 1. Run capistrano command to deploy to directory.
