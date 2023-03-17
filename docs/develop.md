@@ -40,6 +40,13 @@ git branch new-branch-name
 
 ## Make changes in the newly created branch
 
+Commit changes to your local branch:
+
+```bash
+git add .
+git commit -m "notes about your commits"
+```
+
 {: .note }
 > If you make changes to the gemfile run:
 > 
@@ -53,14 +60,8 @@ git branch new-branch-name
 > bundle update
 > ```
 > 
-> This will install depdnencies and modify the gemfile.lock file
-
-Commit changes to your local branch:
-
-```bash
-git add .
-git commit -m "notes about your commits"
-```
+> This will install depdnencies and modify the gemfile.lock file.
+> Do this before pushing to ensure all changes are captured in your push.
 
 ## Run the ruby linter
 
@@ -97,7 +98,7 @@ The review process might look like this:
 
 1. Pull the new feature branch to your local machine
 1. Follow the instructions to [deploy to your local machine](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#locally)
-1. Run the [linter](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#locally) and [test suite](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/develop.html#run-the-test-suite)
+1. Run the [linter](#run-the-ruby-linter) and [test suite](#run-the-test-suite)
 1. Start the application and make sure it works
 1. Review the changed files from the pull request in GitHub and make any comments.
 1. Make revisions or encourage the person who opened the PR to make changes.
