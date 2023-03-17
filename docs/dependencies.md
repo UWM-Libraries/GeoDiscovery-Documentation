@@ -79,6 +79,13 @@ A free web server and application server with support for Ruby, Python, and Node
 
 This GeoBlacklight plugin captures remote images from geographic web services and saves them locally. It borrows the concept of a SolrDocumentSidecar from Spotlight, to have an ActiveRecord-based "sidecar" to match each non-AR SolrDocument. This allows us to use ActiveStorage to attach images to our solr documents.
 
+See ActiveJob, Sidekiq, and Redis below.
+
+## ActiveJob
+[see docs](https://guides.rubyonrails.org/active_job_basics.html)
+
+Active Job is a framework for declaring jobs and making them run on a variety of queuing backends. These jobs can be everything from regularly scheduled clean-ups, to billing charges, to mailings. Anything that can be chopped up into small units of work and run in parallel, really.
+
 ## sidekiq
 
 [sidekiq.org](https://sidekiq.org)
