@@ -11,17 +11,25 @@ nav_order: 3
 
 ### Clone the repository
 
-`git clone git@github.com:UWM-Libraries/GeoDiscovery.git`
+```git
+git clone git@github.com:UWM-Libraries/GeoDiscovery.git
+```
 
-`cd GeoDiscovery`
+```bash
+cd GeoDiscovery
+```
 
 ### Configure .env Files
 
 1. Copy the example .env files:
 
-    `cp .example.env.test .env.test`
+    ```bash
+    cp .example.env.test .env.test
+    ```
 
-    `cp .example.env.development .env.development`
+    ```bash
+    cp .example.env.development .env.development
+    ```
 
 1. After you copy the files, update them to include your database and solr connections
     * Solr lives on port 8983
@@ -33,23 +41,33 @@ The application's [RubyGem](https://rubygems.org/) dependencies are listed in th
 
 Bundle the gems via this command:
 
-`bundle install`
+```bash
+bundle install
+```
 
 If the `Gemfile` has changed recently, you might need to run an additional command to get all the latest updates:
 
-`bundle update`
+```bash
+bundle update
+```
 
 ### Database initialization
 
 You'll need a local database for development and test modes. Both can just use sqlite.
 
-`bundle exec rake db:create`
+```bash
+bundle exec rake db:create
+```
 
-`bundle exec rake db:migrate`
+```bash
+bundle exec rake db:migrate
+```
 
 ### Start the application on a local computer
 
-`bundle exec rake uwm:server`
+```bash
+bundle exec rake uwm:server
+```
 
 ## Deploy to the liblamp-dev or liblamp:
 
