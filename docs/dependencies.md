@@ -123,4 +123,16 @@ An open-source job scheduler written in ruby.
 
 An in-memory data structure store, used as a distributed, in-memory-key-value database, cache, and message broker.
 
+## Minitest
+
+[Minitest Docs](https://docs.seattlerb.org/minitest/)
+
+A complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking. 
+
+## Capybara
+
+[Capybara Docs](teamcapybara.github.io/capybara/)
+
+System tests run via Capybara and a headless web browser, essentially loading a webpage in
+the background and ensuring text or CSS selectors or XPATH expressions exist on the page.
 
