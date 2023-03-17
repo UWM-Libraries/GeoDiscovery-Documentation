@@ -8,6 +8,8 @@ nav_order: 1
 
 [Launch AGSL GeoDiscovery](https://geodiscovery.uwm.edu/){: .btn .btn-purple}
 
+![CI](https://github.com/UWM-Libraries/GeoDiscovery/actions/workflows/ruby.yml/badge.svg) 
+
 <div class="github-card" data-github="UWM-Libraries/GeoDiscovery" data-width="400" data-height="280" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
