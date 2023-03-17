@@ -136,3 +136,20 @@ A complete suite of testing facilities supporting TDD, BDD, mocking, and benchma
 System tests run via Capybara and a headless web browser, essentially loading a webpage in
 the background and ensuring text or CSS selectors or XPATH expressions exist on the page.
 
+## Exception Notification
+
+[Exception Noticiation Repo](https://github.com/smartinez87/exception_notification)
+
+The Exception Notification gem provides a set of notifiers for sending notifications when errors occur in a Rack/Rails application. The built-in notifiers can deliver notifications by email, HipChat, Slack, Mattermost, Teams, IRC, Amazon SNS, Google Chat, Datadog or via custom WebHooks.
+
+The Gem in Geodiscovery is currently configured to e-mail digilib@uwm.edu
+
+## Dependabot
+
+[Dependabot docs](https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates)
+
+Dependabot will analyze and alert the repository administrators should any code dependencies experience a
+security vulnerability. It will also draft pull requests for simple security fixes in the application.
+
+Pull requests drafted by Dependabot should be carefully tested before incorporating into the application. Certain packages (e.g. Bootstrap) can be ignored via the [configuration file](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/.github/dependabot.yml).
+
