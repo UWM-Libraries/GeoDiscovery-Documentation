@@ -44,13 +44,13 @@ git branch new-branch-name
 > If you make changes to the gemfile run:
 > 
 > ```bash
-> `bundle install`
+> bundle install
 > ```
 > 
 > and
 > 
 > ```bash
-> `bundle update`
+> bundle update
 > ```
 > 
 > This will install depdnencies and modify the gemfile.lock file
