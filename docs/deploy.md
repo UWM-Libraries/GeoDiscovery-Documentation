@@ -11,7 +11,7 @@ nav_order: 3
 
 ### Clone the repository
 
-```git
+```bash
 git clone git@github.com:UWM-Libraries/GeoDiscovery.git
 ```
 
