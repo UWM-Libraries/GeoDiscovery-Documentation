@@ -35,6 +35,17 @@ An open-source enterprise-search platform written in Java. Features include full
 
 Blacklight and GeoBlacklight use Solr as a data store. Metadata is ingested and indexed in Solr.
 
+## GeoCombine
+
+[GeoCombine Repo](https://github.com/OpenGeoMetadata/GeoCombine)
+
+A Ruby toolkit for managing geospatial metadata, including:
+* tasks for cloning, updating, and indexing OpenGeoMetdata metadata
+* library for converting metadata between standards
+
+{: .note }
+AGSL Geodiscovery is using [UWM's fork of GeoCombine](https://github.com/UWM-Libraries/GeoCombine)
+
 ## Bootstrap
 
 [getbootstrap.com](https://getbootstrap.com)
@@ -82,17 +93,18 @@ This GeoBlacklight plugin captures remote images from geographic web services an
 See ActiveJob, Sidekiq, and Redis below.
 
 ## ActiveJob
+
 [see docs](https://guides.rubyonrails.org/active_job_basics.html)
 
 Active Job is a framework for declaring jobs and making them run on a variety of queuing backends. These jobs can be everything from regularly scheduled clean-ups, to billing charges, to mailings. Anything that can be chopped up into small units of work and run in parallel, really.
 
-## sidekiq
+## Sidekiq
 
 [sidekiq.org](https://sidekiq.org)
 
 An open-source job scheduler written in ruby. 
 
-## redis
+## Redis
 
 [redis.io](https://redis.io/)
 
