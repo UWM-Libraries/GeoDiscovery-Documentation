@@ -35,6 +35,12 @@ An open-source enterprise-search platform written in Java. Features include full
 
 Blacklight and GeoBlacklight use Solr as a data store. Metadata is ingested and indexed in Solr.
 
+## MariaDB
+
+[mariadb.org](https://mariadb.org/)
+
+Our production database for the application. MariaDB is a community-developed, commercially supported fork of the MySQL relational database management system.
+
 ## GeoCombine
 
 [GeoCombine Repo](https://github.com/OpenGeoMetadata/GeoCombine)
@@ -66,6 +72,8 @@ Open-source CSS framework directed at responsive, mobile-first front-end web dev
 
 A remote server automation tool that supports the scripting and execution of arbitrary tasks and includes a set of sane-default deployment workflows.
 
+Since we are deploying from a local computer, capistrano is not actually installed on the production machine.
+
 ## Sprockets
 
 [Sprockets GitHub Repo](https://github.com/rails/sprockets)
@@ -91,6 +99,21 @@ Web Server used for the dev and test environments
 A.K.A mod_rails and mod_rack
 
 A free web server and application server with support for Ruby, Python, and Node.js. Used in the production environment.
+
+## Advanced Search Plugin for Blacklight
+
+[Advanced Search Plugin for Blacklight Repo](https://github.com/projectblacklight/blacklight_advanced_search)
+
+This is an advanced search plugin for Blacklight. 
+
+{: .note }
+> We're currently using a forked version of this plugin.
+> 
+> ```ruby
+> gem "blacklight_advanced_search", git: "https://github.com/ewlarson/blacklight_advanced_search.git", branch: "bl7-fix-gentle-hands"
+> ```
+>
+> We can use the main gem once [this pull request](https://github.com/projectblacklight/blacklight_advanced_search/pull/128) is incorporated into the main repo.
 
 ## GeoBlacklight Sidecar Images
 
@@ -135,6 +158,8 @@ A complete suite of testing facilities supporting TDD, BDD, mocking, and benchma
 
 System tests run via Capybara and a headless web browser, essentially loading a webpage in
 the background and ensuring text or CSS selectors or XPATH expressions exist on the page.
+
+Capybara is only used in the test environment.
 
 ## Exception Notification
 
