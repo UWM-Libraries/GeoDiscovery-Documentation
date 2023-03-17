@@ -36,6 +36,7 @@ An open-source enterprise-search platform written in Java. Features include full
 Blacklight and GeoBlacklight use Solr as a data store. Metadata is ingested and indexed in Solr.
 
 ## Bootstrap
+
 [getbootstrap.com](https://getbootstrap.com)
 
 Open-source CSS framework directed at responsive, mobile-first front-end web development. It contains HTML, CSS and JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.
@@ -71,6 +72,12 @@ Web Server used for the dev and test environments
 A.K.A mod_rails and mod_rack
 
 A free web server and application server with support for Ruby, Python, and Node.js. Used in the production environment.
+
+## GeoBlacklight Sidecar Images
+
+[Repo](https://github.com/geoblacklight/geoblacklight_sidecar_images)
+
+This GeoBlacklight plugin captures remote images from geographic web services and saves them locally. It borrows the concept of a SolrDocumentSidecar from Spotlight, to have an ActiveRecord-based "sidecar" to match each non-AR SolrDocument. This allows us to use ActiveStorage to attach images to our solr documents.
 
 ## sidekiq
 
