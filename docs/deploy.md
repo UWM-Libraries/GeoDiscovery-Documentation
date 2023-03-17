@@ -108,12 +108,35 @@ bundle exec rake uwm:server
     ```
 
     Add public key to /home/ad.uwm.edu/<Username>/.ssh/authorized_keys as the geoblacklight user on the remote server
+
+    {: .note }
+    > You can use RSA style SSH keys or ed25519 style.
+    >
+    > To use ed25519 style, simply replace `rsa` with `ed25519` in the steps above.
+    > 
+    > We added some gems to the gemfile to allow this functionality:
+    > 
+    > ```ruby
+    > # ED SSH Key support
+    > gem "ed25519", ">=1.2", "< 2.0"
+    > gem "bcrypt_pbkdf", "~> 1.0", "< 2.0"
+    > ```
     
 1. Set up shared directory to add database and solr credentials on the server that is hosting the instance of software (First time only)
 
 1. Run capistrano command to deploy to directory.
-    * `bundle exec cap development deploy` will deploy to liblamp-dev
-    * `bundle exec cap production deploy` will deploy to liblamp
+    
+    Deploy to liblamp-dev:
+
+    ```bash
+    bundle exec cap development deploy
+    ```
+
+    Deploy to liblamp:
+    
+    ```bash
+    bundle exec cap production deploy
+    ```
 
 {: .warning }
 Will likely break on first run for new servers and users.
