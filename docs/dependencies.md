@@ -44,7 +44,15 @@ A Ruby toolkit for managing geospatial metadata, including:
 * library for converting metadata between standards
 
 {: .note }
-AGSL Geodiscovery is using [UWM's fork of GeoCombine](https://github.com/UWM-Libraries/GeoCombine)
+> AGSL Geodiscovery is using [UWM's fork of GeoCombine](https://github.com/UWM-Libraries/GeoCombine)
+> 
+> This can be modified by editing the Gemfile:
+> 
+> ```ruby
+> # GeoCombine via the UWM Libraries Fork
+> gem "geo_combine", git: "https://github.com/UWM-Libraries/GeoCombine.git", branch: "main"
+> ```
+> 
 
 ## Bootstrap
 
