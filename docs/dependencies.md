@@ -164,7 +164,7 @@ A complete suite of testing facilities supporting TDD, BDD, mocking, and benchma
 
 ## Capybara
 
-[Capybara Docs]([teamcapybara.github.io/capybara/](https://teamcapybara.github.io/capybara/))
+[teamcapybara.github.io/capybara](https://teamcapybara.github.io/capybara/)
 
 System tests run via Capybara and a headless web browser, essentially loading a webpage in
 the background and ensuring text or CSS selectors or XPATH expressions exist on the page.
