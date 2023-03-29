@@ -13,7 +13,11 @@ Full instructions here: https://learn.microsoft.com/en-us/windows/wsl/install
 
 1. Run PowerShell as an administrator.
 
-1. Run wsl --install
+1. Run `wsl --install`. This will instal Ubutnu by default. See the link above to specify a different distro.
+
+1. You will need to restart and then run Ubuntu. Setup a UNIX user and password.
+
+1. Follow the [Development Instructions](./develop.md) after installign depdnencies...
 
 ## Install dependencies
 
@@ -37,6 +41,18 @@ Verify the installation by checking the version of Rbenv:
 
 ```bash
 rbenv -v
+```
+
+### Ruby Bundler
+
+```bash
+sudo apt install ruby-bundler
+```
+
+### MySQL client
+
+```bash
+sudo apt-get install libmysqlclient-dev
 ```
 
 ### Ruby
@@ -65,5 +81,8 @@ Verify the installation by checking the current version of Ruby:
 ruby --version
 ```
 
+### Java Runtime and NodeJS
 
-
+```bash
+sudo apt install default-jre nodejs
+```
