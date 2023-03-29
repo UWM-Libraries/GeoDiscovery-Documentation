@@ -19,6 +19,9 @@ git clone git@github.com:UWM-Libraries/GeoDiscovery.git
 cd GeoDiscovery
 ```
 
+{: .note }
+Ensure you've set up Git in your development environment and have set up your SSH key on GitHub.
+
 ### Configure .env Files
 
 1. Copy the example .env files:
