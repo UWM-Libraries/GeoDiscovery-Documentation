@@ -39,9 +39,11 @@ Runs `git pull origin master`
 on all cloned repositories in 
 `./tmp/opengeometadata`
 
-{: .warning }
-This does not seem to work on Stephen's local install.
-
 ```ruby
 bundle exec rake geocombine:pull
 ```
+
+{: .warning }
+This does not seem to work on Stephen's local install.
+
+If that doesn't work, you can navigate into the individual repos in `./tmp/opengeometadata` and do a fetch and pull directly.
