@@ -44,6 +44,4 @@ bundle exec rake geocombine:pull
 ```
 
 {: .warning }
-This does not seem to work on Stephen's local install.
-
-If that doesn't work, you can navigate into the individual repos in `./tmp/opengeometadata` and do a fetch and pull directly.
+If this doesn't work, ensure your current user has access to the `.git/` directory of the repository. 
