@@ -2,7 +2,7 @@
 title: Using GeoCombine for OpenGeoMetadata
 layout: default
 nav_order: 1
-parent: GeoCombine Home
+parent: GeoCombine
 ---
 
 # OpenGeoMetadata and GeoCombine
