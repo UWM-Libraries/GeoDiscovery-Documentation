@@ -5,6 +5,30 @@ nav_order: 1.1
 ---
 # Stack and Dependencies
 
+* [ActiveJob](#activejob)
+* [Advanced Search Plugin](#advanced-search-plugin-for-blacklight)
+* [Apache Solr](#apache-solr)
+* [Blacklight](#blacklight)
+* [Bootstrap](#bootstrap)
+* [Bundler](#bundler)
+* [Capistrano](#capistrano)
+* [Capybara](#capybara)
+* [Dependabot](#dependabot)
+* [Exception Notification](#exception-notification)
+* [GeoBlacklight](#geoblacklight)
+* [GeoBlacklight Sidecar Images](#geoblacklight-sidecar-images)
+* [GeoCombine](#geocombine)
+* [MariaDB](#mariadb)
+* [Minitest](#minitest)
+* [Passenger](#phusion-passenger)
+* [Puma](#puma)
+* [Redis](#redis)
+* [Ruby on Rails](#ruby-on-rails)
+* [Sidekiq](#sidekiq)
+* [Sprockets](#sprockets)
+* [sqlite3](#sqlite3)
+* [Whenever](#whenever)
+
 ## GeoBlacklight
 
 [geoblacklight.org](https://geoblacklight.org/)
@@ -14,11 +38,15 @@ Open-source, Ruby on Rails software application for discovery geospatial content
 {: .note }
 Blacklight and GeoBlacklight are unlike many Ruby on Rails applications in that they use Apache Solr as a data store rather than a relational database.
 
+[Top](#stack-and-dependencies)
+
 ## Blacklight 
 
 [projectblacklight.org](http://projectblacklight.org/)
 
 An open-source, Ruby on Rails engine that provides a basic discovery interface for searching an Apache Solr index, including fielded searching, applyying and removing facet constraints, sorting and paginating through search results, and more.
+
+[Top](#stack-and-dependencies)
 
 ## Ruby on Rails
 
