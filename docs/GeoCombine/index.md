@@ -18,7 +18,3 @@ GeoCombine is a Ruby toolkit for managing geospatial metadata.
 It include tasks for cloning, updating, and indexing OpenGeoMetadata metadata.
 
 It has a library for converting metadata between standards.
-
-[OpenGeoMetadata and Geocombine](./OpenGeoMetadata.md){: .btn }
-
-[Converting Metdata with GeoCombine](./convert.md){: .btn }
