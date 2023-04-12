@@ -44,8 +44,10 @@ bundle exec rake geocombine:index
 > 
 
 {: .note}
-> We may need to specify a [Solr](../dependencies.md/#apache-solr) instance with the `SOLR_URL` variable. For example:
-> 
+> On your local environment, the `SOLR_URL` is set to `http://127.0.0.1:8983/solr/blacklight-core` via the `.env.test` and `.env.development` files using the `dot-env` gem.
+>
+> In production, this could be set by either using a `.env.production` file or by specifying in the rake command: 
+>
 > ```ruby
 > SOLR_URL=http://127.0.0.1:8983/solr/test bundle exec rake geocombine:index
 >```
