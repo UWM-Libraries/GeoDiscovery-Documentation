@@ -54,12 +54,16 @@ An open-source, Ruby on Rails engine that provides a basic discovery interface f
 
 Sever-side web application framework written in Ruby that uses the MVC Framework (model-view-controller). Popular websites like GitHub, Twitch, and AirBNB are built using Ruby on Rails.
 
+[Top](#stack-and-dependencies)
+
 ## Bundler
 
 [bundler.io](https://bundler.io/)
 
 Bundler manages an application's dependencies through its entire life, across many machines, systematically and repeatably. 
 [Read more](https://rubygems.org/gems/bundler)
+
+[Top](#stack-and-dependencies)
 
 ## Apache Solr
 
@@ -69,11 +73,15 @@ An open-source enterprise-search platform written in Java. Features include full
 
 Blacklight and GeoBlacklight use Solr as a data store. Metadata is ingested and indexed in Solr.
 
+[Top](#stack-and-dependencies)
+
 ## MariaDB
 
 [mariadb.org](https://mariadb.org/)
 
 Our production database for the application. MariaDB is a community-developed, commercially supported fork of the MySQL relational database management system.
+
+[Top](#stack-and-dependencies)
 
 ## GeoCombine
 
@@ -94,11 +102,15 @@ A Ruby toolkit for managing geospatial metadata, including:
 > ```
 > 
 
+[Top](#stack-and-dependencies)
+
 ## Bootstrap
 
 [getbootstrap.com](https://getbootstrap.com)
 
 Open-source CSS framework directed at responsive, mobile-first front-end web development. It contains HTML, CSS and JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.
+
+[Top](#stack-and-dependencies)
 
 ## Capistrano
 
@@ -107,6 +119,8 @@ Open-source CSS framework directed at responsive, mobile-first front-end web dev
 A remote server automation tool that supports the scripting and execution of arbitrary tasks and includes a set of sane-default deployment workflows.
 
 Since we are deploying from a local computer, capistrano is not actually installed on the production machine.
+
+[Top](#stack-and-dependencies)
 
 ## Sprockets
 
@@ -118,17 +132,23 @@ Sprockets is a gem from the RoR community that helps you to bundle your JS and C
 It's an old gem and it's as of Rails version 7 being phased out. It's the one GeoBlacklight currently uses.
 See the Ruby on [Rails Asset Pipeline](https://guides.rubyonrails.org/asset_pipeline.html) guides for more info.
 
+[Top](#stack-and-dependencies)
+
 ## sqlite3
 
 [sqlite.org/](https://sqlite.org/index.html)
 
 A small, fast, self-contained SQL database engine. Used in the dev and test environment as a database.
 
+[Top](#stack-and-dependencies)
+
 ## Puma
 
 [Puma GitHub Repo](https://github.com/puma/puma)
 
 Web Server used for the dev and test environments
+
+[Top](#stack-and-dependencies)
 
 ## Phusion Passenger
 
@@ -137,6 +157,8 @@ Web Server used for the dev and test environments
 A.K.A mod_rails and mod_rack
 
 A free web server and application server with support for Ruby, Python, and Node.js. Used in the production environment.
+
+[Top](#stack-and-dependencies)
 
 ## Advanced Search Plugin for Blacklight
 
@@ -153,6 +175,8 @@ This is an advanced search plugin for Blacklight.
 >
 > We can use the main gem once [this pull request](https://github.com/projectblacklight/blacklight_advanced_search/pull/128) is incorporated into the main repo.
 
+[Top](#stack-and-dependencies)
+
 ## GeoBlacklight Sidecar Images
 
 [Repo](https://github.com/geoblacklight/geoblacklight_sidecar_images)
@@ -166,17 +190,23 @@ See [ActiveJob](#activejob)
 [Redis](#redis)
 below.
 
+[Top](#stack-and-dependencies)
+
 ## ActiveJob
 
 [see docs](https://guides.rubyonrails.org/active_job_basics.html)
 
 Active Job is a framework for declaring jobs and making them run on a variety of queuing backends. These jobs can be everything from regularly scheduled clean-ups, to billing charges, to mailings. Anything that can be chopped up into small units of work and run in parallel, really.
 
+[Top](#stack-and-dependencies)
+
 ## Sidekiq
 
 [sidekiq.org](https://sidekiq.org)
 
-An open-source job scheduler written in ruby. 
+An open-source job scheduler written in ruby.
+
+[Top](#stack-and-dependencies)
 
 ## Redis
 
@@ -184,17 +214,23 @@ An open-source job scheduler written in ruby.
 
 An in-memory data structure store, used as a distributed, in-memory-key-value database, cache, and message broker.
 
+[Top](#stack-and-dependencies)
+
 ## Whenever
 
 [repo](https://github.com/javan/whenever)
 
 Whenever is a Ruby gem that provides a clear syntax for writing and deploying cron jobs.
 
+[Top](#stack-and-dependencies)
+
 ## Minitest
 
 [Minitest Docs](https://docs.seattlerb.org/minitest/)
 
 A complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking. 
+
+[Top](#stack-and-dependencies)
 
 ## Capybara
 
@@ -205,6 +241,8 @@ the background and ensuring text or CSS selectors or XPATH expressions exist on 
 
 Capybara is only used in the test environment.
 
+[Top](#stack-and-dependencies)
+
 ## Exception Notification
 
 [Exception Noticiation Repo](https://github.com/smartinez87/exception_notification)
@@ -212,6 +250,8 @@ Capybara is only used in the test environment.
 The Exception Notification gem provides a set of notifiers for sending notifications when errors occur in a Rack/Rails application. The built-in notifiers can deliver notifications by email, HipChat, Slack, Mattermost, Teams, IRC, Amazon SNS, Google Chat, Datadog or via custom WebHooks.
 
 The Gem in Geodiscovery is currently configured to e-mail digilib@uwm.edu
+
+[Top](#stack-and-dependencies)
 
 ## Dependabot
 
@@ -222,3 +262,4 @@ security vulnerability. It will also draft pull requests for simple security fix
 
 Pull requests drafted by Dependabot should be carefully tested before incorporating into the application. Certain packages (e.g. Bootstrap) can be ignored via the [configuration file](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/.github/dependabot.yml).
 
+[Top](#stack-and-dependencies)
