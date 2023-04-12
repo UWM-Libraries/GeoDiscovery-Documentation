@@ -64,4 +64,4 @@ bundle exec rake geocombine:pull
 ```
 
 {: .warning }
-If this doesn't work, ensure your current user has access to the `.git/` directory of the repository. 
+If this doesn't work, ensure your current user has read/write access to the `.git/` directory of the repository. 
