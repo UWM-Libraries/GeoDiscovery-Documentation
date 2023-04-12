@@ -48,6 +48,7 @@ bundle exec rake geocombine:index
 > 
 > ```ruby
 > SOLR_URL=http://127.0.0.1:8983/solr/test bundle exec rake geocombine:index
+>```
 > 
 
 ## Update local OpenGeoMetadata repositories
