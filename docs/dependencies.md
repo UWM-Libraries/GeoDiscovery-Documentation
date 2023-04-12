@@ -156,6 +156,12 @@ An open-source job scheduler written in ruby.
 
 An in-memory data structure store, used as a distributed, in-memory-key-value database, cache, and message broker.
 
+## Whenever
+
+[repo](https://github.com/javan/whenever)
+
+Whenever is a Ruby gem that provides a clear syntax for writing and deploying cron jobs.
+
 ## Minitest
 
 [Minitest Docs](https://docs.seattlerb.org/minitest/)
