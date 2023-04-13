@@ -14,7 +14,7 @@ nav_order: 1.1
 * [Capistrano](#capistrano)
 * [Capybara](#capybara)
 * [Dependabot](#dependabot)
-* [Dotenv](#dotenv)
+* [dotenv](#dotenv)
 * [Exception Notification](#exception-notification)
 * [GeoBlacklight](#geoblacklight)
 * [GeoBlacklight Sidecar Images](#geoblacklight-sidecar-images)
