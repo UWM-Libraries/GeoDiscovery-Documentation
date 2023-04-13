@@ -14,6 +14,7 @@ nav_order: 1.1
 * [Capistrano](#capistrano)
 * [Capybara](#capybara)
 * [Dependabot](#dependabot)
+* [Dotenv](#dotenv)
 * [Exception Notification](#exception-notification)
 * [GeoBlacklight](#geoblacklight)
 * [GeoBlacklight Sidecar Images](#geoblacklight-sidecar-images)
@@ -101,6 +102,18 @@ A Ruby toolkit for managing geospatial metadata, including:
 > gem "geo_combine", git: "https://github.com/UWM-Libraries/GeoCombine.git", branch: "main"
 > ```
 > 
+
+[Top](#stack-and-dependencies)
+
+## dotenv
+
+[repo](https://github.com/bkeepers/dotenv)
+
+Shim to load environment variables from `.env` into `ENV` in development.
+
+Storing configuration in the environment is one of the tenets of a [twelve-factor app](http://12factor.net/). Anything that is likely to change between deployment environments–such as resource handles for databases or credentials for external services–should be extracted from the code into environment variables.
+
+But it is not always practical to set environment variables on development machines or continuous integration servers where multiple projects are run. dotenv loads variables from a `.env` file into `ENV` when the environment is bootstrapped.
 
 [Top](#stack-and-dependencies)
 
