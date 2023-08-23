@@ -21,27 +21,11 @@ Full instructions here: https://learn.microsoft.com/en-us/windows/wsl/install
 
 ## Install dependencies
 
-### rbenv
+### rvm - Ruby Version Manager:
 
-Download and install the shell script used to install Rbenv:
+Install rvm
 
-```bash
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
-```
-
-You need to add $HOME/.rbenv/bin to your PATH environment variable to start using Rbenv.
-
-```bash
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-Verify the installation by checking the version of Rbenv:
-
-```bash
-rbenv -v
-```
+See [Repo](https://github.com/rvm/ubuntu_rvm)
 
 ### Ruby Bundler
 
@@ -57,22 +41,22 @@ sudo apt-get install libmysqlclient-dev
 
 ### Ruby
 
-List all of the versions of Ruby available for installation through Rbenv with:
+List all of the versions of Ruby available for installation through rvm with:
 
 ```bash
-rbenv install -l
+rvm list known
 ```
 
-Select a version of Ruby and install it using. At the time of writing, our gemfile specifies version 3.2.1
+Select a version of Ruby and install it using rvm. At the time of writing, our gemfile specifies version 3.2.1
 
 ```bash
-rbenv install 3.2.1
+rvm install ruby-23.2.1
 ```
 
 Set the newly installed version of Ruby as the global version:
 
 ```bash
-rbenv global 3.2.1
+rvm --default use 3.2.1
 ```
 
 Verify the installation by checking the current version of Ruby:
