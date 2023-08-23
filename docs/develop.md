@@ -71,6 +71,12 @@ This linter will check that our ruby code meets the language specifications
 bundle exec standardrb
 ```
 
+if the linter detects problems, you can usually fix them with
+
+```bash
+bundle exec standardrb --fix
+```
+
 ## Run the test suite
 
 ```bash
