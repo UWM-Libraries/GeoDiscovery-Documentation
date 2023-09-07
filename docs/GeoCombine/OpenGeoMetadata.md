@@ -27,6 +27,9 @@ bundle exec rake geocombine:clone
 bundle exec rake geocombine:clone[edu.stanford.purl]
 ```
 
+You can check to see what repositories are cloned in
+`../GeoDiscovey/tmp/opengeometadata`
+
 ## Index cloned repos into Solr
 
 ```ruby
@@ -55,13 +58,14 @@ bundle exec rake geocombine:index
 
 ## Update local OpenGeoMetadata repositories
 
-Runs `git pull origin master` 
-on all cloned repositories in 
-`./tmp/opengeometadata`
-
 ```ruby
 bundle exec rake geocombine:pull
 ```
 
+Runs `git pull origin master` 
+on all cloned repositories in 
+`GeoDiscovery/tmp/opengeometadata`
+
 {: .warning }
 If this doesn't work, ensure your current user has read/write access to the `.git/` directory of the repository. 
+Permission issues can arrise.

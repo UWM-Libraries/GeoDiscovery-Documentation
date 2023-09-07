@@ -22,11 +22,20 @@ It has a library for converting metadata between standards.
 ## Main Rake Tasks:
 
 List rake tasks:
-`rake -T`
+
+```bash
+rake -T
+```
 
 Index metadata in tmp/OpenGeoMetadata:
-`bundle exec rake geocombine:index`
+
+```bash
+bundle exec rake geocombine:index
+```
+
 
 Delete all sample data from solr:
 
-`bundle exec rake uwm:index:delete_all`
+```bash
+bundle exec rake uwm:index:delete_all
+```
