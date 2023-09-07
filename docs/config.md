@@ -1,7 +1,7 @@
 ---
 title: Application Configuration
 layout: default
-nav_order: 5
+nav_order: 1.2
 ---
 # Configure the GeoDiscovery Application
 
