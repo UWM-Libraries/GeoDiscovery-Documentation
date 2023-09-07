@@ -153,5 +153,8 @@ You can now do [feature development](develop) on your local machine to test out 
     bundle exec cap production deploy
     ```
 
+{: .note }
+> This last section needs more details on the capistrano deploy process.
+
 {: .warning }
 > Will likely break on first run for new servers and users.
