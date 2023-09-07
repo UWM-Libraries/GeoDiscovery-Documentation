@@ -7,6 +7,11 @@ nav_order: 2
 
 # Feature Development Workflow
 
+First, you will need to [clone the repository](deploy/#clone-the-repository)
+and [configure the .env files](deploy/#configure-env-files).
+You may wish to go through the entire [deploy](deploy) cycle to ensure
+you're starting with a working application to develop on.
+
 ## Create a new branch
 
 ```bash

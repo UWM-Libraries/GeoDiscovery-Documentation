@@ -7,7 +7,7 @@ nav_order: 3
 
 # Deploy the application
 
-## Locally:
+## On a local computer:
 
 ### Clone the repository
 
@@ -24,7 +24,7 @@ Ensure you've set up Git in your development environment and have set up your SS
 
 ### Configure .env Files
 
-1. Copy the example .env files:
+Copy the example .env files:
 
     ```bash
     cp .example.env.test .env.test
@@ -34,13 +34,15 @@ Ensure you've set up Git in your development environment and have set up your SS
     cp .example.env.development .env.development
     ```
 
-1. After you copy the files, update them to include your database and solr connections
-    * Solr lives on port 8983
-    * Geoblacklight 3000
+After you copy the files, update them to include your database and solr connections
+* Solr port 8983
+* Geoblacklight port 3000
 
 ### Bundle dependencies
 
-The application's [RubyGem](https://rubygems.org/) dependencies are listed in the project `Gemfile`. 
+The application's [RubyGem](https://rubygems.org/)
+dependencies are listed in the project
+[`Gemfile`](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/Gemfile). 
 
 Bundle the gems via this command:
 
@@ -66,11 +68,21 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 ```
 
-### Start the application on a local computer
+### Start the application
 
 ```bash
 bundle exec rake uwm:server
 ```
+
+You should now be able to interact with the application in the browser at
+`http://localhost:3000`
+
+or via the command line by running `rails console` in the GeoDiscovery directory
+while the app is running.
+
+It's a good idea to [run tests](develop/#run-the-test-suite) to make sure everything was installed and updated correctly.
+
+You can now do [feature development](develop) on your local machine to test out changes or new features.
 
 ## Deploy to the liblamp-dev or liblamp:
 
@@ -142,4 +154,4 @@ bundle exec rake uwm:server
     ```
 
 {: .warning }
-Will likely break on first run for new servers and users.
+> Will likely break on first run for new servers and users.
