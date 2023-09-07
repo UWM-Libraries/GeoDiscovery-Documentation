@@ -23,9 +23,7 @@ Full instructions here: https://learn.microsoft.com/en-us/windows/wsl/install
 
 ### rvm - Ruby Version Manager:
 
-Install rvm
-
-See [Repo](https://github.com/rvm/ubuntu_rvm)
+See instructions on the rvm [Repo](https://github.com/rvm/ubuntu_rvm)
 
 ### Ruby Bundler
 
