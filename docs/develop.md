@@ -45,6 +45,12 @@ git branch new-branch-name
 
 ## Make changes in the newly created branch
 
+Checkout the new branch:
+
+```bash
+git checkout new-branch-name
+```
+
 Commit changes to your local branch:
 
 ```bash
