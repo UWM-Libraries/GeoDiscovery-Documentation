@@ -127,6 +127,11 @@ The review process might look like this:
 
 Once the pull request is merged, we should [tag a release](https://git-scm.com/book/en/v2/Git-Basics-Tagging) using semantic tagging.
 
+```bash
+git tag v4.0.x 
+git push origin --tags
+```
+
 ## Deploy
 
 [Deploy to development](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#deploy-to-the-liblamp-dev-or-liblamp) environment for further testing.
