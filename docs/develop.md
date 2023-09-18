@@ -96,10 +96,6 @@ bundle exec standardrb --fix
 RAILS_ENV=test bundle exec rake ci
 ```
 
-{: .warning }
-> Ensure that the server is running when you run the tests.
-> You may need to open a second terminal to do this.
-
 Green lines are passed tests, red are failed and will tell you which line broke .
 
 {: .note }
