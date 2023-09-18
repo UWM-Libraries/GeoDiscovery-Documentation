@@ -27,12 +27,25 @@ List rake tasks:
 rake -T
 ```
 
+{: .note }
+> Rake tasks are run in the application directory. On the Development and Production environments, this is found in:
+> `/var/www/rubyapps/uwm-geoblacklight/current`
+> In your local environment, you just run it in the GeoDiscovery directory.
+>
+
 Index metadata in tmp/OpenGeoMetadata:
 
 ```bash
 bundle exec rake geocombine:index
 ```
 
+{: .note }
+> Depending on the environment, you may need to specify the SOLR_URL and SCHEMA_VERSION environment variables.
+>
+> ```bash
+>SOLR_URL=http://127.0.0.1:8983/solr/test SCHEMA_VERSION=Aardvark bundle exec rake geocombine:index
+>```
+>
 
 Delete all sample data from solr:
 
