@@ -21,12 +21,6 @@ It has a library for converting metadata between standards.
 
 ## Main Rake Tasks:
 
-List rake tasks:
-
-```bash
-rake -T
-```
-
 {: .note }
 > Rake tasks are run in the application directory. On the Development and Production environments, this is found in:
 > `/var/www/rubyapps/uwm-geoblacklight/current`

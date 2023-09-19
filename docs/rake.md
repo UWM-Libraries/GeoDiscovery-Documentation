@@ -4,7 +4,95 @@ layout: default
 nav_order: 4
 ---
 
-# rake tasks
+# Rake Tasks
+
+Introductory Tasks
+
+## Common Rake Tasks for AGSL Geodiscovery
+
+### Database Creation and Migration
+
+As part of the process to
+[deploy a local application](deploy)
+you will run these rake tasks to create the database and
+to run migrations.
+
+```ruby
+bundle exec rake db:create
+
+bundle exec rake db:migrate
+```
+
+### Run the server on a local environment
+
+This command will run solr and GeoBlacklight in your local development environment when run in the application directory.
+
+```ruby
+bundle exec rake uwm:server
+```
+
+### Harvest and Index OpenGeoMetadata
+
+[OpenGeoMetadata](https://opengeometadata.org/)
+is what makes GeoBlacklight a *federated* geoportal.
+[GeoCombine](Geocombine/index)
+([Repo](https://github.com/OpenGeoMetadata/GeoCombine))
+is a gem installed in our application that allows us to harvest
+and index records from OpenGeoMetadata repositories into our portal.
+
+Rake tasks are used to perform some of the functions that we utitilize
+from GeoCombine:
+
+#### Pull down repositories from OpenGeoMetadata
+
+You can either specify a repository or pull down all repositories:
+
+```ruby
+bundle exec rake geocombine:pull[edu.umn] # Pull down Minnesota's repo.
+bundle exec rake geocombine:pull          # Pull down all repos
+```
+
+This effectively runs `git pull` for the repos.
+
+
+#### Index all records in the /tmp/opengeometadata directory.
+
+```ruby
+bundle exec rake geocombine:index
+```
+
+[See the OpenGeometadata page](GeoCombine/OpenGeoMetadata)
+for information about environment variables for
+metadata schema version (`SCHEMA VERSION`)
+and the url for Solr (`SOLR_URL`).
+
+
+### Task Name
+
+Description.
+
+```ruby
+Code
+```
+
+### Task Name
+
+Description.
+
+```ruby
+Code
+```
+
+
+## All Rake Tasks
+
+{: .note }
+> This is the rake tasks that the rake application finds available.
+> They do not all necessarily work on GeoDiscovery or may produce unexpected
+> results. Only the tasks above have been tested for the purposes of 
+> documentation.
+
+Output of `rake -T`:
 
 ```ruby
 rake about                   # List versions of all Rails frameworks and the environment
