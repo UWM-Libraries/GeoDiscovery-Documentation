@@ -156,5 +156,8 @@ You can now do [feature development](develop) on your local machine to test out 
 {: .note }
 > This last section needs more details on the capistrano deploy process.
 
+{: .note }
+> OpenGeoMetadata files stored in /tmp/opengeometadata are not moved over to the new release as part of the deploy process.
+
 {: .warning }
 > Will likely break on first run for new servers and users.
