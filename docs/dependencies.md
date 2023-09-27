@@ -21,6 +21,7 @@ nav_order: 1.1
 * [GeoCombine](#geocombine)
 * [MariaDB](#mariadb)
 * [Minitest](#minitest)
+* [Noid](#noid)
 * [Passenger](#phusion-passenger)
 * [Puma](#puma)
 * [Redis](#redis)
@@ -274,5 +275,15 @@ Dependabot will analyze and alert the repository administrators should any code 
 security vulnerability. It will also draft pull requests for simple security fixes in the application.
 
 Pull requests drafted by Dependabot should be carefully tested before incorporating into the application. Certain packages (e.g. Bootstrap) can be ignored via the [configuration file](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/.github/dependabot.yml).
+
+[Top](#stack-and-dependencies)
+
+## Noid
+
+[Noid docs](https://metacpan.org/dist/Noid/view/noid)
+
+The noid utility creates minters (identifier generators) and accepts commands that operate them. Once created, a minter can be used to produce persistent, globally unique names for documents, databases, images, vocabulary terms, etc. Properly managed, these identifiers can be used as long term durable information object references within naming schemes such as ARK, PURL, URN, DOI, and LSID. At the same time, alternative minters can be set up to produce short-lived names for transaction identifiers, compact web server session keys, and other ephemera.
+
+We use Noid to mint ARK identifiers.
 
 [Top](#stack-and-dependencies)
