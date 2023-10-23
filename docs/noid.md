@@ -22,73 +22,72 @@ https://digilib-dev.uwm.edu/noidu_gmgs?mint+1
 
 **noid mint N** [ Element Value ]
 
-    Generate N identifiers. If other arguments are specified, for each generated noid, add the given Element and bind it to the given Value. [Element-Value binding upon minting is not implemented yet.]
+Generate N identifiers. If other arguments are specified, for each generated noid, add the given Element and bind it to the given Value. [Element-Value binding upon minting is not implemented yet.]
 
-    There is no "unmint" command. Once an identifier has been circulated in the outside world, it may be hard to withdraw because external users and systems will have bound it with their own assertions. Even within the minting organization, removing all of the identifier's supporting bindings could entail actions such as file deletion that are outside the scope of the minter. While there is no command capable of withdrawing a circulated identifier, it is nonetheless easy to queue an identifier for reminting and to hold it against the possibility of minting at all. Identifiers that are long term should be treated as non-renewable resources except when you are absolutely sure about recycling them.
+There is no "unmint" command. Once an identifier has been circulated in the outside world, it may be hard to withdraw because external users and systems will have bound it with their own assertions. Even within the minting organization, removing all of the identifier's supporting bindings could entail actions such as file deletion that are outside the scope of the minter. While there is no command capable of withdrawing a circulated identifier, it is nonetheless easy to queue an identifier for reminting and to hold it against the possibility of minting at all. Identifiers that are long term should be treated as non-renewable resources except when you are absolutely sure about recycling them.
 
 **noid peppermint N** [ Element Value ]
 
-    [This command is not implemented yet.] Generate N "peppered" identifiers. A peppered identifier is a regular identifier concatenated with a "!" character and a randomly generated cookie -- the pepper -- which serves as a kind of per-identifier password. (Salt is a technical term for some extra data that makes it harder to crack encrypted values; we use pepper for some extra data that makes it harder to crack unencrypted values.) To provide an extra level of database security, the base identifier, which is everything up to the "!", should be used in all public communication, but the complete peppered identifier is required for all noid operations that would change values in the database.
+[This command is not implemented yet.] Generate N "peppered" identifiers. A peppered identifier is a regular identifier concatenated with a "!" character and a randomly generated cookie -- the pepper -- which serves as a kind of per-identifier password. (Salt is a technical term for some extra data that makes it harder to crack encrypted values; we use pepper for some extra data that makes it harder to crack unencrypted values.) To provide an extra level of database security, the base identifier, which is everything up to the "!", should be used in all public communication, but the complete peppered identifier is required for all noid operations that would change values in the database.
 
-    As with the mint command, if other arguments are specified, for each generated noid, add the given Element and bind it to the given Value.
-
+As with the mint command, if other arguments are specified, for each generated noid, add the given Element and bind it to the given Value.
 
 **noid bind How Id Element Value**
 
-    For the given Id, bind the Element to Value according to How. The Element and Value may be arbitrary strings. There are two reserved Element names allowing Values to be entered that are too large or syntactically inconvenient (depending on the calling environment's quoting restrictions) to pass in as command-line tokens.
+For the given Id, bind the Element to Value according to How. The Element and Value may be arbitrary strings. There are two reserved Element names allowing Values to be entered that are too large or syntactically inconvenient (depending on the calling environment's quoting restrictions) to pass in as command-line tokens.
 
-    If the Element is ":" and no Value is present, lines are read from the standard input up to a blank line; they will contain Element-colon-Value pairs in essentially email header format, with long values continued on indented lines. If the Element is ":-" and no Value is present, lines are read from the standard input up to end-of-file; the first non-comment, non-blank line must have an Element-colon to specify an Element name, and all the remaining input (up to EOF) is taken as its corresponding Value. Lines beginning with "#" are considered "comment" lines and are skipped.
+If the Element is ":" and no Value is present, lines are read from the standard input up to a blank line; they will contain Element-colon-Value pairs in essentially email header format, with long values continued on indented lines. If the Element is ":-" and no Value is present, lines are read from the standard input up to end-of-file; the first non-comment, non-blank line must have an Element-colon to specify an Element name, and all the remaining input (up to EOF) is taken as its corresponding Value. Lines beginning with "#" are considered "comment" lines and are skipped.
 
-    The How argument specifies one of the following kinds of binding. Of these, the set, add, insert, and purge kinds "don't care" if there is no current binding.
+The How argument specifies one of the following kinds of binding. Of these, the set, add, insert, and purge kinds "don't care" if there is no current binding.
 
-    *new*
+*new*
 
-        Only if Element does not exist, create a new binding.
-        
-    *replace*
+Only if Element does not exist, create a new binding.
 
-        Only if Element exists, undo any old bindings and create a new binding.
+*replace*
 
-    *set*
+Only if Element exists, undo any old bindings and create a new binding.
 
-        Means new or, failing that, replace.
+*set*
 
-    *append*
+Means new or, failing that, replace.
 
-        Only if Element exists, place Value at the end of the old binding.
-        
-    *add*
+*append*
 
-        Means new or, failing that, append.
+Only if Element exists, place Value at the end of the old binding.
 
-    *prepend*
+*add*
 
-        Only if Element exists, place Value at the beginning of the old binding.
+Means new or, failing that, append.
 
-    *insert*
+*prepend*
 
-        Means new or, failing that, prepend.
+Only if Element exists, place Value at the beginning of the old binding.
 
-    *delete*
+*insert*
 
-        Remove any trace of Element, returning an error if it did not exist to begin with.
+Means new or, failing that, prepend.
 
-    *purge*
+*delete*
 
-        Remove any trace of Element, returning success whether or not it existed to begin with.
+Remove any trace of Element, returning an error if it did not exist to begin with.
 
-    *mint*
+*purge*
 
-        Means new, but ignore the Id argument (actually, confirm that it was given as new) and mint a new Id first.
+Remove any trace of Element, returning success whether or not it existed to begin with.
 
-    *peppermint*
+*mint*
 
-        [This kind of binding is not implemented yet.] Means new, but ignore the Id argument (new) and peppermint a new Id first.
+Means new, but ignore the Id argument (actually, confirm that it was given as new) and mint a new Id first.
+
+*peppermint*
+
+[This kind of binding is not implemented yet.] Means new, but ignore the Id argument (new) and peppermint a new Id first.
 
 **noid fetch Id** [ Element ... ]
 
-    For the noid, Id, print with labels all bindings for the given Elements. If no Element is given, find and print all bindings for the given Id. This is the verbose version of the get command, in that it prints headers and labels for everything it finds.
+For the noid, Id, print with labels all bindings for the given Elements. If no Element is given, find and print all bindings for the given Id. This is the verbose version of the get command, in that it prints headers and labels for everything it finds.
 
 **noid get Id** [ Element ... ]
 
-    For the noid, Id, print without labels all bindings for the given Elements. If no Element is given, find and print all bindings for the given Id. This is the quiet version of the fetch command, in that it suppresses all headers and labels. Between each Element requested, the output will be separated by a blank line.
+For the noid, Id, print without labels all bindings for the given Elements. If no Element is given, find and print all bindings for the given Id. This is the quiet version of the fetch command, in that it suppresses all headers and labels. Between each Element requested, the output will be separated by a blank line.
