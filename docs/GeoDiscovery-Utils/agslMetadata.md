@@ -1,13 +1,19 @@
 ---
-title: AGSL Metadata Utility
+title: Geometadata Editor
 layout: default
 nav_order: 2
 parent: GeoDiscovery-Utils
 ---
 
-# Python Modules:
+# geometadataedit
 
-* updateMetadata.py
-* mainIngest.py
-* sanity_check.py
-* moveFiles.py
+A package for working with Geospatial Metadata using arcpy, pathlib, xml.etree, and python-dotenv.
+
+## modules
+
+The package includes the following modules:
+
+1. updatemetadata.py
+1. batchingest.py
+1. movedatasets.py
+1. tests.py
