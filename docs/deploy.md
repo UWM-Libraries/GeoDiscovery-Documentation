@@ -161,3 +161,15 @@ You can now do [feature development](develop) on your local machine to test out 
 
 {: .warning }
 > Will likely break on first run for new servers and users.
+
+{: .note }
+> If you get the following error:
+>  ERROR linked file
+> /var/www/rubyapps/uwm-geoblacklight/shared/config/blacklight.yml
+> does not exit...
+> There are three files in that dir that need to
+> be copied over. 
+> 1. "config/blacklight.yml"
+> 2. "config/database.yml"
+> 3. "config/master.key"
+> 
