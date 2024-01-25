@@ -21,18 +21,16 @@ The purpose of the remainder of this page is to document the AGSL's implementati
 for indexing of metadata harvested from open data portals,
 and potentially how we manipulate and ingest metadata from OpenGeoMetadata.
 
-### Required Fields
-
-<!--- Generate a table using this tool: https://jakebathman.github.io/Markdown-Table-Generator/. Use agsl-ogm-aardvark.csv to edit. -->
+<!--- Generate a table using this tool: https://jakebathman.github.io/Markdown-Table-Generator/ -->
 
 **Name (bold: required by GBL)**|**Field Name**|**Implementation**
 -----|-----|-----
 **[Title](https://opengeometadata.org/ogm-aardvark/#title)**|dct\_title\_s|We use Madison's filenaming convention, e.g. "Parks Milwaukee County, Wisconsin 2009". Some use a date range. *Geography\_Theme\_Year*
 **[Resource Class](https://opengeometadata.org/ogm-aardvark/#resource-class)**|gbl\_resourceClass\_sm|Controlled vocab, e.g. Collections, Datasets, Imagery, Maps, Web services, Websites, Other. We mostly use Datasets. Web services and Maps will likley be used too.
 **[Access Rights](https://opengeometadata.org/ogm-aardvark/#access-rights)**|dct\_accessRights\_s|Public or Restricted. How can we use to differentiate between UW and UWM restriction?? Or should we use "rights" for that?
-**[ID](https://opengeometadata.org/ogm-aardvark/#id)**|id|This field makes up the URL for the resource in GeoBlacklight. It is visible to the user and is used to create permalinks. If having a readable slug is desired, it is common to use the form institution-keyword1-keyword2.
+**[ID](https://opengeometadata.org/ogm-aardvark/#id)**|id|This field makes up the URL for the resource in GeoBlacklight. It is visible to the user and is used to create permalinks. We use a modified ARK for this, e.g. ark:-77981-gmgs1j97737
 **[Modified](https://opengeometadata.org/ogm-aardvark/#modified)**|gbl\_mdModified\_dt|This value should indicate when the metadata (not the resource itself) was last modified.
-**[Metadata Version](https://opengeometadata.org/ogm-aardvark/#metadata-version)**|gbl\_mdVersion\_s|There have been two metadata schema versions for GeoBlacklight applications: GeoBlacklight 1.0 (abbreviated to GBL 1.0) and OpenGeoMetadata Aardvark (abbreviated to Aardvark).
+**[Metadata Version](https://opengeometadata.org/ogm-aardvark/#metadata-version)**|gbl\_mdVersion\_s|We use "Aardvark" for all records
 [Description](https://opengeometadata.org/ogm-aardvark/#description)|dct\_description\_sm|second-most prominent value (after Title). User readable text that describes the dataset.
 [Language](https://opengeometadata.org/ogm-aardvark/#language)|dct\_language\_sm|"eng" for most, we get this from the ISO.
 [Creator](https://opengeometadata.org/ogm-aardvark/#creator)|dct\_creator\_sm|We use the ISO "source" for this. For example, Metro Data Resource Center. Can be multivalued.
