@@ -139,6 +139,8 @@ git push origin --tags
 
 ## Open the Rails Console for Interactive Development on the CLI
 
-From the GeoDiscovery directory, run `rails console`
+From the GeoDiscovery directory, run `rails console` or `rails c`
+
+See the [Rails documentation](https://guides.rubyonrails.org/v3.1/command_line.html#rails-console) for more info
 
 
