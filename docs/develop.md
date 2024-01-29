@@ -137,6 +137,8 @@ git push origin --tags
 [Deploy to development](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#deploy-to-the-liblamp-dev-or-liblamp) environment for further testing.
 
 
+## Open the Rails Console for Interactive Development on the CLI
 
+From the GeoDiscovery directory, run `rails console`
 
 
