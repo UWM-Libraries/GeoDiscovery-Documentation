@@ -56,6 +56,18 @@ edu.indiana   edu.nyu  edu.psu  edu.rutgers  edu.uiowa     edu.umich  edu.unl  e
 > bundle exec rake geombine:pull[edu.wisc.aardvark]
 > ```
 
+## Update local OpenGeoMetadata repositories
+
+```bash
+bundle exec rake geocombine:pull[repo]
+```
+
+This will update (via `git pull`) the specified repo.
+
+{: .warning }
+Running it without a specified repo seems functionally equivalent to `rake geocombine:clone` which will
+pull everything from OGM, even repos we might not want!
+
 
 ## Index cloned repos into Solr
 
@@ -86,18 +98,9 @@ bundle exec rake geocombine:index
 > ```bash
 > SCHEMA_VERSION=Aardvark SOLR_URL=http://127.0.0.1:8983/solr/blacklight-core bundle exec rake geocombine:index
 > ```
-> 
-
-## Update local OpenGeoMetadata repositories
-
-```bash
-bundle exec rake geocombine:pull
-```
-
-Runs `git pull origin master` 
-on all cloned repositories in 
-`GeoDiscovery/tmp/opengeometadata`
 
 {: .warning }
-If this doesn't work, ensure your current user has read/write access to the `.git/` directory of the repository. 
+If these functions don't work, ensure your current user has read/write access to the `.git/` directory of the targeted repo. 
 Permission issues can arise.
+
+
