@@ -19,6 +19,39 @@ It include tasks for cloning, updating, and indexing OpenGeoMetadata metadata.
 
 It has a library for converting metadata between standards.
 
+## CRON job rake tasks related to GeoCombine:
+
+GeoCombine rake tasks are scheduled via the [Whenever](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/dependencies.html#whenever)
+gem in [config/schedule.rb](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/schedule.rb).
+
+```ruby
+# Updates the UWM OpenGeoMetadata directory (git pull) and re-index
+every :monday, at: "4:00 am", roles: [:app] do
+  # Ours
+  rake "geocombine:pull[edu.uwm]"
+  # Direct from GeoCombine
+  rake "geocombine:pull[edu.uchicago]"
+  rake "geocombine:pull[edu.illinois]"
+  rake "geocombine:pull[edu.indiana]"
+  rake "geocombine:pull[edu.uiowa]"
+  rake "geocombine:pull[edu.umd]"
+  rake "geocombine:pull[edu.msu]"
+  rake "geocombine:pull[edu.umn]"
+  rake "geocombine:pull[edu.unl]"
+  rake "geocombine:pull[edu.nyu]"
+  rake "geocombine:pull[edu.osu]"
+  rake "geocombine:pull[edu.psu]"
+  rake "geocombine:pull[edu.purdue]"
+  rake "geocombine:pull[edu.rutgers]"
+  rake "geocombine:pull[edu.umich]"
+  # Metadata We've Converted
+  rake "geocombine:pull[edu.wisc.aardvark]"
+  rake "geocombine:pull[edu.uwm.converted]"
+  # Index
+  rake "geocombine:index"
+end
+```
+
 ## Main Rake Tasks:
 
 {: .note }
