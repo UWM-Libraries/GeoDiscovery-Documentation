@@ -1,7 +1,7 @@
 ---
 title: GeoDiscovery-Utils Setup
 layout: default
-nav_order: 1.1
+nav_order: 1
 parent: GeoDiscovery-Utils
 ---
 
