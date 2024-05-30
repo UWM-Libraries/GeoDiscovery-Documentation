@@ -21,7 +21,7 @@ Your command prompt should now be preceded by (venv) if it's activated.
 
 Windows:
 
-```cmd
+```
 # In cmd.exe
 venv\Scripts\activate.bat
 # In PowerShell
