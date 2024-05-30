@@ -2,7 +2,7 @@
 title: Geometadata Editor
 layout: default
 nav_order: 2
-parent: utils
+parent: GeoDiscovery Utilities
 ---
 
 # geometadataedit

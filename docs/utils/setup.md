@@ -2,7 +2,7 @@
 title: GeoDiscovery-Utils Setup
 layout: default
 nav_order: 1
-parent: utils
+parent: GeoDiscovery Utilities
 ---
 
 # Set Up GeoDiscovery-Utils Locally
