@@ -117,6 +117,28 @@ We don't want to ingest these into our portal, so we add them to the skiplist.
 
 There are some datasets that have other elements such as `DatasetPrefix` that are not being used at this time.
 
+## Reviewing a DCAT catalog using Open Refine
+
+You can inspect a DCAT JSON api call using Open Refine:
+
+1. Find a DCAT catalog like this one for Milwaukee County LIO:
+[https://data-mclio.hub.arcgis.com/api/feed/dcat-us/1.1.json](https://data-mclio.hub.arcgis.com/api/feed/dcat-us/1.1.json)
+2. In OpenRefine, under _Create project_, select _Web Addresses (URLs)_
+3. Enter the DCAT catalog URL and click _Next_
+4. You will be asked to Configure parsing options including specifying a _record path_.
+See the image below for an example of such a record path:
+![image](https://github.com/UWM-Libraries/GeoDiscovery-Documentation/assets/12561339/2c6f5ec3-1fad-45c5-a91d-124379b539fa)
+5. After you click to specify the _dataset_ object as the record path,
+the preview will update. If things look as expected in the preview,
+create a project with a descriptive title.
+
+{: .highlight }
+Since JSON is not a "flat" way of storing data, the _Record_ view capabilities of OpenRefine are particularly useful here.
+If you plan to store a CSV, it may be useful to
+[Join Multi-Valued Cells](https://openrefine.org/docs/manual/cellediting#join-multi-valued-cells)
+for _distribution_ and _keyword_ columns.
+
+
 ## Basic crosswalk mapping:
 
     Title:
