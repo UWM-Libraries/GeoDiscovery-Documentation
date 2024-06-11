@@ -133,7 +133,9 @@ the preview will update. If things look as expected in the preview,
 create a project with a descriptive title.
 
 {: .highlight }
-Since JSON is not a "flat" way of storing data, the _Record_ view capabilities of OpenRefine are particularly useful here.
+Since JSON is not a "flat" way of storing data, the 
+[_Record_](https://openrefine.org/docs/manual/exploring#rows-vs-records)
+view capabilities of OpenRefine are particularly useful here.
 If you plan to store a CSV, it may be useful to
 [Join Multi-Valued Cells](https://openrefine.org/docs/manual/cellediting#join-multi-valued-cells)
 for _distribution_ and _keyword_ columns.
