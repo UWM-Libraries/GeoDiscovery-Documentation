@@ -6,11 +6,14 @@ url: https://uwm-libraries.github.io/GeoDiscovery-Documentation/
 
 callouts:
   warning:
-    title: Warning
+    title: Warning!
     color: red
   note:
-    title: note
+    title: Note
     color: purple
+  highlight:
+    title: Tip
+    color: yellow
 
 aux_links:
   Documentation repo: https://github.com/UWM-Libraries/GeoDiscovery-Documentation
