@@ -17,17 +17,6 @@ The OpenDataHarvest tool is a component of the GeoDiscovery-Utils repository. Th
 - **Data Transformation**: The tool includes functionalities to transform the harvested data into formats that are compatible with the GeoDiscovery portal, ensuring seamless integration.
 - **Metadata Handling**: OpenDataHarvest handles metadata extraction and processing, ensuring that all datasets are accompanied by comprehensive metadata for better discoverability and usability.
 
-### Usage
-The tool can be integrated into workflows for regularly updating the GeoDiscovery portal with new and updated datasets. It is suitable for use by libraries, research institutions, and other organizations involved in managing geospatial data.
-
-### Integration
-OpenDataHarvest is part of a broader set of utilities in the GeoDiscovery-Utils repository, all of which support the functionalities of the GeoDiscovery portal. The tool is designed to work in conjunction with other components to provide a robust geospatial data management and discovery solution.
-
-### Benefits
-- **Efficiency**: Automates the repetitive task of data harvesting, saving time and resources.
-- **Up-to-date Data**: Ensures that the GeoDiscovery portal remains current with the latest available geospatial data.
-- **Enhanced Discoverability**: Through comprehensive metadata processing, the tool enhances the discoverability of datasets within the portal.
-
 ## The [config.yaml](https://github.com/UWM-Libraries/GeoDiscovery-Utils/blob/main/opendataharvest/config.yaml) file.
 
 YAML is a human-readable data serialization language.
