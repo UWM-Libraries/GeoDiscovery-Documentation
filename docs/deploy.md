@@ -144,22 +144,22 @@ You can now do [feature development](develop) on your local machine to test out 
 {: .warning }
 > Will likely break on first run for new servers and users. This is normal, read error logs and warnings to troubleshoot dependecy issues, etc.
     
-    Deploy to liblamp-dev:
+Deploy to liblamp-dev:
 
-    ```bash
-    bundle exec cap development deploy
-    ```
+```bash
+bundle exec cap development deploy
+```
 
-    Deploy to liblamp:
-    
-    ```bash
-    bundle exec cap production deploy
-    ```
+Deploy to liblamp:
+
+```bash
+bundle exec cap production deploy
+```
 
 These commands will run [Capistrano](dependencies/#capistrano) and deploy the application to development
 or production respectively.
 
-If it's sucessful, it will be saved in the "current" directory found at /var/www/rubyapps/uwm-geoblacklight/current/.
+If it's sucessful, it will be saved in the current-release directory found at /var/www/rubyapps/uwm-geoblacklight/current/.
 The directory is actually a shortcut to /var/www/rubyapps/uwm-geoblacklight/releases/_latest_ where _latest_ is represented
 by a numerical version number according to it's creation date, e.g. `20240612212046/`
 
@@ -183,3 +183,29 @@ by a numerical version number according to it's creation date, e.g. `20240612212
 > 1. "config/blacklight.yml"
 > 2. "config/database.yml"
 > 3. "config/master.key"
+
+### Configure Cron jobs with Whenever
+
+Since schedule.rb, the file that Whenever uses to set up Cron jobs, is committed to version control,
+we might need to modify it depending on the environment you're deploying to.
+
+For example, I do not want the Cron job that pulls down metadata from OpenGeoMetadata to run on the 
+development site while testing new functionality for GeoCombine. 
+You can edit the [schedule.rb](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/schedule.rb)
+file in the current release on LibLamp-Dev or LibLamp and then write the changes to the system's
+crontab by running...
+
+```bash
+whenever --write-crontab
+```
+
+or for short,
+
+```bash
+whenever -w
+```
+
+{: .note }
+> The Readme file on the Whenever gem's repository implies that `Whenever --update-crontab` is the command to use, but when I used
+> `Whenever -help`, the appropriate command was the one used above. Not sure why there is this inconsistency. You can always
+> double check the system's crontab at /var/spool/cron/geoblacklight to make sure your changes are reflected.
