@@ -245,6 +245,9 @@ An in-memory data structure store, used as a distributed, in-memory-key-value da
 
 Whenever is a Ruby gem that provides a clear syntax for writing and deploying cron jobs.
 
+Some information about configuring Whenever can be found on the
+[deloy page](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#configure-cron-jobs-with-whenever).
+
 [Top](#stack-and-dependencies)
 
 ## Minitest
