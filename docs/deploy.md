@@ -140,6 +140,9 @@ You can now do [feature development](develop) on your local machine to test out 
 1. Set up shared directory to add database and solr credentials on the server that is hosting the instance of software (First time only)
 
 1. Run capistrano command to deploy to directory.
+
+{: .warning }
+> Will likely break on first run for new servers and users. This is normal, read error logs and warnings to troubleshoot dependecy issues, etc.
     
     Deploy to liblamp-dev:
 
@@ -153,14 +156,22 @@ You can now do [feature development](develop) on your local machine to test out 
     bundle exec cap production deploy
     ```
 
-{: .note }
-> This last section needs more details on the capistrano deploy process.
+These commands will run [Capistrano](dependencies/#capistrano) and deploy the application to development
+or production respectively.
+
+If it's sucessful, it will be saved in the "current" directory found at /var/www/rubyapps/uwm-geoblacklight/current/.
+The directory is actually a shortcut to /var/www/rubyapps/uwm-geoblacklight/releases/_latest_ where _latest_ is represented
+by a numerical version number according to it's creation date, e.g. `20240612212046/`
 
 {: .note }
 > OpenGeoMetadata files stored in /tmp/opengeometadata are not moved over to the new release as part of the deploy process.
-
-{: .warning }
-> Will likely break on first run for new servers and users.
+> [.env.production](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/.example.env.production)
+> should be modified to point [GeoCombine's](dependencies/#geocombine)
+> OGM_PATH environment variable to /var/www/rubyapps/uwm-geoblacklight/shared/tmp/opengeometadata.
+>
+> ```bash
+> OGM_PATH=/var/www/rubyapps/uwm-geoblacklight/shared/tmp/opengeometadata
+> ```
 
 {: .note }
 > If you get the following error:
@@ -172,4 +183,3 @@ You can now do [feature development](develop) on your local machine to test out 
 > 1. "config/blacklight.yml"
 > 2. "config/database.yml"
 > 3. "config/master.key"
-> 
