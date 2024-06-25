@@ -80,7 +80,7 @@ You should now be able to interact with the application in the browser at
 or via the command line by running `rails console` in the GeoDiscovery directory
 while the app is running.
 
-It's a good idea to [run tests](develop.html/#run-the-test-suite) to make sure everything was installed and updated correctly.
+It's a good idea to [run tests](develop.html#run-the-test-suite) to make sure everything was installed and updated correctly.
 
 You can now do [feature development](develop) on your local machine to test out changes or new features.
 
@@ -156,7 +156,7 @@ Deploy to liblamp:
 bundle exec cap production deploy
 ```
 
-These commands will run [Capistrano](dependencies.html/#capistrano) and deploy the application to development
+These commands will run [Capistrano](dependencies.html#capistrano) and deploy the application to development
 or production respectively.
 
 If it's sucessful, it will be saved in the current-release directory found at /var/www/rubyapps/uwm-geoblacklight/current/.
