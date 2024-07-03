@@ -18,9 +18,9 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
 - Python 3.x
 - Required libraries listed in `requirements.txt`:
   - `requests`
-  - `lxml`
-  - `pandas`
   - `pyyaml`
+  - `python-dateutil`
+  - `jsonschema`
 
 ## Setup
 1. **Environment Setup**
