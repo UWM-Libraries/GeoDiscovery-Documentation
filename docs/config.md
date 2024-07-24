@@ -43,10 +43,46 @@ and
 [Sidekiq](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/dependencies.html#sidekiq)
 use this file to run scheduled tasks.
 
+and
+[Whenever](https://github.com/javan/whenever) to write the crontab entries
+
 * Harvest thumbnail images for search results
 * Build the sitemap
 * Clean up anonymous user accounts created by search sessions
 * Clean up recent anonymous search records
+
+```bash
+# Clear the current crontab for the geoblacklight user
+sudo crontab -r -u geoblacklight
+
+# List the crontab for the current user (geoblacklight)
+crontab -l
+
+> no crontab for geoblacklight
+
+# See the schedule.rb file in the crontab format
+whenever
+
+# Write the crontab based on schedule.rb
+whenever -w
+
+> [geoblacklight@liblamp-dev8 current]$ crontab -l
+> # Begin Whenever generated tasks for: /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033/config/schedule.rb at: 2024-07-24 09:21:04 -0500
+> 5 0 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033 && RAILS_ENV=production bundle exec rake gblsci:images:harvest_retry --silent'
+>
+> 30 0 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033 && RAILS_ENV=production bundle exec rake sitemap:refresh --silent'
+>
+> 30 1 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033 && RAILS_ENV=production bundle exec rake devise_guests:delete_old_guest_users[2] --silent'
+>
+> 0 2 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033 && RAILS_ENV=production bundle exec rake blacklight:delete_old_searches[7] --silent'
+>
+> 30 2 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033 && RAILS_ENV=production bundle exec rake uwm:opendataharvest:harvest_dcat --silent'
+>
+> 00 3 * * * /bin/bash -l -c '. /var/www/rubyapps/uwm-geoblacklight/current/bin/geocombine_pull_and_index.sh'
+
+# End Whenever generated tasks for: /var/www/rubyapps/uwm-geoblacklight/releases/20240705201033/config/schedule.rb at: 2024-07-24 09:21:04 -0500
+
+```
 
 ## [./app/assets/images](https://github.com/UWM-Libraries/GeoDiscovery/tree/main/app/assets/images)
 
