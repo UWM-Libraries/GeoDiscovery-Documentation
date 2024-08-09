@@ -12,6 +12,31 @@ This project uses the
 [GeoBlacklight Sidecar Images](https://github.com/geoblacklight/geoblacklight_sidecar_images)
 gem to collect search result thumbnails.
 
+Ensure Sidekiq and Redis are working as expected by running Sidekiq Monitor:
+
+```ruby
+bundle exec sidekiqmon
+
+#output:
+Sidekiq 7.3.0
+2024-08-09 20:05:07 UTC
+
+---- Overview ----
+  Processed: 80
+     Failed: 1
+       Busy: 0
+   Enqueued: 0
+    Retries: 0
+  Scheduled: 0
+       Dead: 0
+
+---- Processes (0) ----
+
+---- Queues (1) ----
+NAME       SIZE  LATENCY
+default       0     0.00
+```
+
 That gem includes several helpful rake tasks to manage thumbnail images:
 
 ```ruby
