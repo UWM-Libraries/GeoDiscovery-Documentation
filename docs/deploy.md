@@ -209,3 +209,25 @@ whenever -w
 > The Readme file on the Whenever gem's repository implies that `Whenever --update-crontab` is the command to use, but when I used
 > `Whenever -help`, the appropriate command was the one used above. Not sure why there is this inconsistency. You can always
 > double check the system's crontab at /var/spool/cron/geoblacklight to make sure your changes are reflected.
+> 
+
+## Redis and Sidekiq
+
+The GBL application enques jobs to Sidekiq from a Redis list, sidekiq is supposed to be monitoring redis for new jobs.
+
+You can check if things are working with `bundle exec sidekiqmon` which should bring up an overview of sidekiq's status.
+If that doesn't work, it's likley that either Sidekiq or Redis is not running.
+
+You can see if the redis service is failing with `systemctl --failed` and check to see if it's there.
+If it is showing failed, restart redis with `sudo systemctl restart redis`.
+
+You can run sidekiq with `bundle exec sidekiq` but we're working now to make sure that sidekiq is running in systemmd.
+
+
+
+
+
+
+
+
+
