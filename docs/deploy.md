@@ -351,4 +351,37 @@ based on [this blog](https://deepakdargade.medium.com/sidekiq-in-production-8adf
 If you have completed the last step, you have successfully created the sidekiq service and you can start using this.
 
 
+### Modify the `sidekiq.service` File
+
+If you want to change the automatic restart behavior for Sidekiq:
+
+1. Open the `sidekiq.service` file in a text editor:
+
+   ```bash
+   sudo nano /etc/systemd/system/sidekiq.service
+   ```
+
+2. Modify or add the `Restart` option. For example, to restart Sidekiq only if it fails, set it to `on-failure`, or set it to `always` to restart regardless of the stop condition:
+
+   ```ini
+   [Service]
+   Type=simple
+   ExecStart=/usr/local/bin/sidekiq -e production
+   Restart=on-failure
+   ```
+
+3. After making changes, reload the systemd configuration to apply the changes:
+
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+4. Optionally, restart the Sidekiq service to ensure the new configuration takes effect:
+
+   ```bash
+   sudo systemctl restart sidekiq
+   ```
+
+By setting `Restart=on-failure` or `Restart=always`, Sidekiq will restart automatically based on the specified conditions. If you want Sidekiq to stay stopped when you manually stop it, avoid setting `Restart=always`.
+
 
