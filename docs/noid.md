@@ -8,6 +8,38 @@ nav_order: 5
 
 [Main Documentation](https://metacpan.org/dist/Noid/view/noid)
 
+## Setting up the database on a new env:
+
+`noid dbcreate gmgs.reeeeek long 77981 "University of Wisconsin-Milwaukee Libraries" gmgs`
+
+`gmgs.reeeeek`
+
+This is the template for the identifiers you're minting. Here’s how it breaks down:
+
+`gmgs.` is a fixed prefix for our identifiers (in this case, a "shoulder" that represents a sub-namespace within the larger namespace).
+    
+`r` stands for a random character (can be any letter or digit).
+    
+`eeee` stands for exact characters (usually letters or digits).
+    
+`k` stands for a check digit (ensures integrity and helps prevent typographical errors).
+
+`long`
+
+This is the term that defines how many identifiers the system can mint and how they behave: long means a very large identifier space, typically meaning the system won’t run out of identifiers for a long time. Other options include short or medium, where short means identifiers can be reused when the space is exhausted.
+
+`77981`
+
+This is your NAAN (Name Assigning Authority Number), which identifies your organization in the global ARK namespace. In this case, it's the registered NAAN for the University of Wisconsin-Milwaukee Libraries.
+
+`"University of Wisconsin-Milwaukee Libraries"`
+
+This is the NAA or Name Assigning Authority in a human-readable format, which corresponds to the NAAN (77981). It represents the entity responsible for assigning and managing the identifiers.
+
+`gmgs`
+
+This is the SubNAA or shoulder, which is a namespace within your organization (in this case, gmgs). It allows for further subdivision of the identifier space. You use this shoulder to create identifiers like ark:/77981/
+
 ## URLS:
 
 Production: https://digilib-admin.uwm.edu/noidu_gmgs
