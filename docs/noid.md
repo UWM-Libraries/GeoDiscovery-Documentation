@@ -10,7 +10,7 @@ nav_order: 5
 
 ## Setting up the database on a new env:
 
-`noid dbcreate gmgs.reeeeek long 77981 "University of Wisconsin-Milwaukee Libraries" gmgs`
+`noid dbcreate gmgs.reeeeeek long 77981 "University of Wisconsin-Milwaukee Libraries" gmgs`
 
 `gmgs.reeeeek`
 
