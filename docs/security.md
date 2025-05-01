@@ -13,3 +13,7 @@ Attempting to implement throttling and ip restriction for reducing web crawling 
 There is much discussion of this issue in the Geo4Lib and other related slack channels and other community dicussions.
 
 We're attempting to implement [Bot Challenge Page](https://github.com/samvera-labs/bot_challenge_page/) from the Samvera community.
+
+We've set up a Cloudflare Turnstile under my account, but we might want to reconsider its ownership once it's in production. Maybe set up a digilib account?
+
+
