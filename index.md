@@ -12,6 +12,8 @@ nav_order: 1
 
 ![CI](https://github.com/UWM-Libraries/GeoDiscovery/actions/workflows/ruby.yml/badge.svg) 
 
+[Uptime Robot Status Page](https://stats.uptimerobot.com/cb4RfX9aFf)
+
 <div class="github-card" data-github="UWM-Libraries/GeoDiscovery" data-width="400" data-height="280" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
