@@ -2,6 +2,7 @@
 title: Bot Challenge Page
 layout: default
 nav_order: 4
+parent: GeoDiscovery Utilities
 ---
 
 # Bot Challenge Page
