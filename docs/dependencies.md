@@ -10,6 +10,7 @@ nav_order: 1.1
 * [Apache Solr](#apache-solr)
 * [Blacklight](#blacklight)
 * [Bootstrap](#bootstrap)
+* [Bot Challenge Page](#bot-challenge-page)
 * [Bundler](#bundler)
 * [Capistrano](#capistrano)
 * [Capybara](#capybara)
@@ -82,6 +83,28 @@ Blacklight and GeoBlacklight use Solr as a data store. Metadata is ingested and 
 [mariadb.org](https://mariadb.org/)
 
 Our production database for the application. MariaDB is a community-developed, commercially supported fork of the MySQL relational database management system.
+
+[Top](#stack-and-dependencies)
+
+## Bot Challenge Page
+
+[bot_challenge_page GitHub](https://github.com/samvera-labs/bot_challenge_page)
+
+The [`bot_challenge_page`](https://github.com/samvera-labs/bot_challenge_page) gem provides session-aware bot protection via [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/), replacing rate-limiting logic previously handled by Rack::Attack.
+
+We use this gem to prevent automated scraping and preserve application resources while avoiding false positives for search engine bots and legitimate users.
+
+### Key features:
+
+- JavaScript-based challenge, rendered inline
+- Session tracking (`bot_challenge_passed`) to avoid repeat prompts
+- Exemption logic based on IP allowlists and safe frontend actions
+- Configuration via Rails initializer
+
+Turnstile keys and exemptions are configured in [`config/initializers/bot_challenge_page.rb`](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/initializers/bot_challenge_page.rb). The gem is activated via `ApplicationController` and works with minimal customization.
+
+{: .note }
+This approach proved more reliable than Rack::Attack in production, especially when facing IP-rotating bots or crawlers.
 
 [Top](#stack-and-dependencies)
 
