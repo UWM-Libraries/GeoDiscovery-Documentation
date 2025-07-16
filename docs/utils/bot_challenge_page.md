@@ -91,6 +91,8 @@ config.enabled = !Rails.env.test? && Settings.turnstile.enabled
 
 ## Related Links
 
+- [Production Turnstile Widget Dashboard](https://dash.cloudflare.com/708515ae3fa6ac65284fbb4fc4a3d81a/turnstile/widget/0x4AAAAAABg46vO9T6nWu7EG)
+- [Uptime Robot status page](https://stats.uptimerobot.com/cb4RfX9aFf)
 - [bot_challenge_page GitHub](https://github.com/samvera-labs/bot_challenge_page)
 - [Cloudflare Turnstile Docs](https://developers.cloudflare.com/turnstile/)
 - [GeoDiscovery GitHub](https://github.com/UWM-Libraries/GeoDiscovery)
