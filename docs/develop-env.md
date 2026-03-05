@@ -2,7 +2,7 @@
 layout: default
 title: Setting up a development environment
 nav_exclude: false
-nav_order: 1.99
+nav_order: 1.8
 ---
 
 # Setting up a Development environment on a Windows 10 computer
