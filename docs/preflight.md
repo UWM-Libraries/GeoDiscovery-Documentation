@@ -136,8 +136,120 @@ Goal:
 
 ---
 
-# Step 0 Complete
-
 Once the server is healthy and services are stable, proceed.
+
+# Step 1 – Ruby / Bundler / Nokogiri readiness (prod)
+
+Run on `liblamp8`:
+
+```bash
+ruby -v
+bundle -v || bundler -v
+which ruby
+which bundle || which bundler
+````
+
+Then confirm Bundler config from the deployed app directory:
+
+```bash
+cd /var/www/rubyapps/uwm-geoblacklight/current
+pwd
+bundle config
+```
+
+Sanity-check Nokogiri loads (catches native extension / libxml2 issues):
+
+```bash
+cd /var/www/rubyapps/uwm-geoblacklight/current
+bundle exec ruby -e 'require "nokogiri"; puts "nokogiri #{Nokogiri::VERSION}"'
+```
+
+**Expected/confirmed on `liblamp8`:**
+
+* Ruby (RVM): `ruby 3.2.1`
+* Bundler: `2.5.16`
+* Bundler `deployment = true`
+* Bundler `without = [:development, :test]`
+* Nokogiri loads cleanly: `nokogiri 1.17.2`
+
+---
+
+# Step 2 – Node / Yarn / Rails tooling readiness (prod)
+
+Verify JS toolchain is installed and on PATH:
+
+```bash
+node -v
+npm -v
+yarn -v || true
+which node
+which yarn || true
+```
+
+Confirm Rails is available in the deployed app:
+
+```bash
+cd /var/www/rubyapps/uwm-geoblacklight/current
+bin/rails -v
+```
+
+Because Capistrano runs commands in a non-interactive shell, verify versions there too:
+
+```bash
+bash -lc 'node -v && npm -v && yarn -v'
+```
+
+**Expected/confirmed on `liblamp8`:**
+
+* Node: `v20.20.0`
+* npm: `10.8.2`
+* yarn: `1.22.22`
+* Rails: `7.2.2.1`
+* Non-interactive shell sees node/npm/yarn correctly
+
+---
+
+# Step 3 – Redis + Solr health checks (prod)
+
+## Redis
+
+Verify Redis is up and responding:
+
+```bash
+redis-cli ping
+```
+
+Snapshot Redis memory use:
+
+```bash
+redis-cli info memory | head -n 40
+```
+
+**Expected/confirmed on `liblamp8`:**
+
+* `PONG`
+* Memory use ~`40MB` (healthy)
+
+## Solr
+
+Verify Solr responds on localhost:
+
+```bash
+curl -sSf http://localhost:8983/solr/ >/dev/null && echo "solr ok"
+```
+
+Check recent Solr log activity for obvious errors:
+
+```bash
+sudo tail -n 120 /var/solr/logs/solr.log
+```
+
+**Expected/confirmed on `liblamp8`:**
+
+* `solr ok`
+* Logs show normal query traffic (no obvious errors)
+
+
+
 
 
