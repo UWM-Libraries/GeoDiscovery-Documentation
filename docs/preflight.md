@@ -284,6 +284,37 @@ Capistrano will:
 - update the `current` symlink
 - restart Passenger
 
+{: .warning }
+> ### Bundler deployment failure: `Ignoring <gem> because its extensions are not built`
+>
+> During a Capistrano deployment, `bundle install` may fail with a series of warnings followed by `Bundler::GemNotFound` errors. The log output typically looks like:
+>
+> ```
+> Ignoring bootsnap-1.18.4 because its extensions are not built.
+> Ignoring msgpack-1.7.5 because its extensions are not built.
+> ...
+> Bundler::GemNotFound: Could not find tzinfo-2.0.6.gem for installation
+> Bundler::GemNotFound: Could not find builder-3.3.0.gem for installation
+> ```
+>
+> Although the errors appear to indicate missing gems, the underlying problem is usually an **inconsistent or partially built Bundler environment** on the server. This commonly occurs when:
+>
+> - A previous deployment was interrupted
+> - Native extensions failed to compile
+> - The Ruby or Bundler version changed
+> - The shared bundle cache became corrupted
+>
+> In Capistrano deployments, gems are typically installed into a shared directory such as:
+>
+> ```
+> /var/www/<application>/shared/bundle
+> ```
+>
+> If this shared bundle becomes inconsistent, Bundler may repeatedly ignore gems whose native extensions are not compiled and ultimately fail to resolve required dependencies.
+>
+> See the related issue for remediation steps.
+> 
+
 ---
 
 ## 3. Resume Sidekiq (production server)
