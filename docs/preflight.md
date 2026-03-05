@@ -369,6 +369,54 @@ Verify the application is functioning:
 - Run a search
 - Open a record page
 
+## 6. Verify crontab
+
+After deploying, verify that only **one Whenever cron block** exists.  
+Older deployments may leave stale cron jobs pointing at old `releases/...` paths.
+
+### 1. Check for multiple Whenever blocks
+
+```bash
+crontab -l | grep -n "Begin Whenever generated tasks"
+```
+
+You should see **only one entry**, similar to:
+
+```
+Begin Whenever generated tasks for: geodiscovery_production
+```
+
+### 2. If multiple blocks exist
+
+Clear the old identifier:
+
+```bash
+cd /var/www/rubyapps/uwm-geoblacklight/current
+bundle exec whenever --clear-crontab geodiscovery
+```
+
+Then regenerate the correct schedule:
+
+```bash
+bundle exec whenever --update-crontab geodiscovery_production --set environment=production
+```
+
+### 3. Verify again
+
+```bash
+crontab -l | grep -n "Begin Whenever generated tasks"
+```
+
+Only **one block** should remain and all jobs should reference:
+
+```
+/var/www/rubyapps/uwm-geoblacklight/current
+```
+
+Ensure the Solr watchdog job is still present: `*/2 * * * * /usr/local/bin/check_solr.sh`
+
+This prevents duplicate scheduled jobs from running across multiple releases.
+
 
 
 
