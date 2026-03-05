@@ -1,3 +1,10 @@
+---
+layout: default
+title: Deployment Preflight
+nav_exclude: false
+nav_order: 1.9
+---
+
 # GeoDiscovery Deployment Preflight – Step 0: Server Health
 
 Before running a Capistrano deploy to `liblamp8`, perform the following checks to ensure the server is stable and unlikely to fail during deployment.
