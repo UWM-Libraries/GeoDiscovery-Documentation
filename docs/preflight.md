@@ -250,6 +250,88 @@ sudo tail -n 120 /var/solr/logs/solr.log
 * Logs show normal query traffic (no obvious errors)
 
 
+# Step 4 — Production Deployment (Tag-Based)
+
+## 1. Quiet Sidekiq (production server)
+
+Prevent Sidekiq from taking new jobs during deploy.
+
+```bash
+sudo systemctl kill -s TSTP sidekiq
+sudo systemctl status sidekiq --no-pager
+```
+
+Sidekiq will finish current jobs but stop accepting new ones.
+
+---
+
+## 2. Deploy the tagged release (workstation)
+
+Always deploy using an explicit tag.
+
+```bash
+cd ~/GeoDiscovery
+git fetch --tags
+bundle exec cap production deploy BRANCH=v4.5.5
+```
+
+Capistrano will:
+
+- create a new release under `releases/`
+- install gems
+- install yarn packages
+- compile assets
+- update the `current` symlink
+- restart Passenger
+
+---
+
+## 3. Resume Sidekiq (production server)
+
+After deploy completes:
+
+```bash
+sudo systemctl kill -s CONT sidekiq
+sudo systemctl status sidekiq --no-pager
+```
+
+This allows Sidekiq to begin processing jobs again.
+
+---
+
+## 4. Post-deploy smoke checks
+
+Verify application dependencies are healthy.
+
+```bash
+# confirm current release
+readlink -f /var/www/rubyapps/uwm-geoblacklight/current
+
+# check Solr
+curl -sSf http://localhost:8983/solr/ >/dev/null && echo "solr ok"
+
+# check Redis
+redis-cli ping
+```
+
+Expected results:
+
+```
+solr ok
+PONG
+```
+
+---
+
+## 5. Basic application test
+
+Verify the application is functioning:
+
+- Load homepage
+- Run a search
+- Open a record page
+
+
 
 
 
