@@ -7,7 +7,11 @@ nav_order: 2
 
 # Deploy the application
 
-## On a local computer:
+## On a local computer (local development):
+
+{: .note }
+Runtime/tool setup for WSL Ubuntu (including `mise`, Ruby, and Node) is documented in [Setting up a development environment](develop-env).
+This section focuses on local app bootstrap after runtimes are installed.
 
 ### Clone the repository
 
@@ -26,17 +30,15 @@ Ensure you've set up Git in your development environment and have set up your SS
 
 Copy the example .env files:
 
-    ```bash
-    cp .example.env.test .env.test
-    ```
+```bash
+cp .example.env.test .env.test
+cp .example.env.development .env.development
+```
 
-    ```bash
-    cp .example.env.development .env.development
-    ```
+After you copy the files, update them to include your database and Solr connections:
 
-After you copy the files, update them to include your database and solr connections
-* Solr port 8983
-* Geoblacklight port 3000
+- Solr port `8983`
+- Rails app port `3000`
 
 ### Bundle dependencies
 
@@ -48,6 +50,13 @@ Bundle the gems via this command:
 
 ```bash
 bundle install
+```
+
+Install JavaScript dependencies with Corepack-managed Yarn:
+
+```bash
+corepack enable
+yarn install
 ```
 
 If the `Gemfile` has changed recently, you might need to run an additional command to get all the latest updates:
@@ -73,6 +82,8 @@ bundle exec rake db:migrate
 ```bash
 bundle exec rake uwm:server
 ```
+
+This local task starts the Rails app stack and local Solr wrapper.
 
 You should now be able to interact with the application in the browser at
 `http://localhost:3000`
@@ -383,5 +394,3 @@ If you want to change the automatic restart behavior for Sidekiq:
    ```
 
 By setting `Restart=on-failure` or `Restart=always`, Sidekiq will restart automatically based on the specified conditions. If you want Sidekiq to stay stopped when you manually stop it, avoid setting `Restart=always`.
-
-

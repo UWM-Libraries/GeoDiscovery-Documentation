@@ -5,76 +5,140 @@ nav_exclude: false
 nav_order: 1.8
 ---
 
-# Setting up a Development environment on a Windows 10 computer
+# Setting up a development environment (WSL Ubuntu)
 
-## Install Ubutnu using the Windows Subsystem for Linux (WSL)
+This page covers local development setup on Windows using WSL Ubuntu.
+For production deployment instructions, see [Deploy the application](deploy).
 
-Full instructions here: https://learn.microsoft.com/en-us/windows/wsl/install
+## Install WSL / Ubuntu
 
-1. Run PowerShell as an administrator.
+Use the current Microsoft WSL instructions: https://learn.microsoft.com/en-us/windows/wsl/install
 
-1. Run `wsl --install`. This will instal Ubutnu by default. See the link above to specify a different distro.
+In short:
 
-1. You will need to restart and then run Ubuntu. Setup a UNIX user and password.
-
-1. Follow the [Development Instructions](./develop.md) after installign depdnencies...
-
-## Install dependencies
-
-### rvm - Ruby Version Manager:
-
-See instructions on the rvm [Repo](https://github.com/rvm/ubuntu_rvm)
-
-### Ruby Bundler
+1. Install WSL (from an elevated PowerShell):
 
 ```bash
-sudo apt install ruby-bundler
+wsl --install
 ```
 
-### MySQL client
+2. Launch Ubuntu after reboot.
+3. Create your UNIX username and password.
+
+## Install base apt dependencies
+
+Update package lists, then install the dependencies used by the current local setup:
 
 ```bash
-sudo apt-get install libmysqlclient-dev
+sudo apt update
+sudo apt install -y \
+  build-essential git curl unzip pkg-config \
+  rustc libssl-dev libyaml-dev zlib1g-dev libgmp-dev \
+  default-libmysqlclient-dev libpq-dev postgresql-client \
+  libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev \
+  imagemagick libvips shared-mime-info \
+  openjdk-17-jre-headless
 ```
 
-### Ruby
+## Install mise
 
-List all of the versions of Ruby available for installation through rvm with:
+Install and activate `mise` for Bash:
 
 ```bash
-rvm list known
+curl https://mise.run | sh
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
-Select a version of Ruby and install it using rvm. At the time of writing, our gemfile specifies version 3.2.1
+Verify installation:
 
 ```bash
-rvm install ruby-23.2.1
+mise --version
+mise doctor
 ```
 
-Set the newly installed version of Ruby as the global version:
+## Runtime setup model
+
+`mise` is the preferred runtime manager for local development.
+
+- Global Ruby can be installed with `mise` if you want a default outside projects.
+- GeoDiscovery uses project-local runtime versions declared in `mise.toml`.
+- Current project runtime targets are:
+  - `ruby = "3.2.1"`
+  - `node = "20"`
+
+The repository also includes `.ruby-version` and Ruby pinning in `Gemfile` for compatibility, but `mise.toml` is the preferred multi-runtime local-dev setup.
+
+## Clone the repository
 
 ```bash
-rvm --default use 3.2.1
+git clone git@github.com:UWM-Libraries/GeoDiscovery.git
+cd GeoDiscovery
+mise install
 ```
 
-Verify the installation by checking the current version of Ruby:
+## Configure env files
+
+Copy the local env files:
 
 ```bash
-ruby --version
+cp .example.env.test .env.test
+cp .example.env.development .env.development
 ```
 
-### Java Runtime and NodeJS
+Local development expects:
+
+- Solr on port `8983`
+- Rails on port `3000`
+- A Redis URL may be present in `.env.development`, but local bootstrap is focused on Solr + Rails unless your feature specifically needs Redis
+
+## Install app dependencies
 
 ```bash
-sudo apt install default-jre nodejs
+bundle install
+corepack enable
+yarn install
 ```
 
-### Chrome Browser
+Notes:
 
-This is required to run the CI tests.git 
+- `package.json` pins Yarn via the `packageManager` field, so use Corepack-managed Yarn instead of globally installed Yarn.
+- Node `20` is intentional for this project; the frontend dependency tree requires newer Node than `18`.
+
+## Database setup (SQLite for local dev/test)
 
 ```bash
-sudo apt-get install libxss1 libappindicator1 libindicator7
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome*.deb
+bundle exec rake db:create
+bundle exec rake db:migrate
+```
+
+## Start the app
+
+```bash
+bundle exec rake uwm:server
+```
+
+This task starts the local app stack plus the local Solr wrapper. Java must be installed or Solr startup will fail.
+
+## Run tests
+
+Run tests explicitly in the test environment so commands do not run against development data:
+
+```bash
+RAILS_ENV=test bundle exec rake test
+```
+
+```bash
+RAILS_ENV=test bundle exec rails test:system
+```
+
+## Browser requirement for system tests
+
+GeoDiscovery system tests use Capybara with a Chrome-family browser.
+Local system-test execution requires Chrome or Chromium installed and discoverable on `PATH`.
+Package names can vary by Ubuntu release.
+
+```bash
+which google-chrome || which chromium || which chromium-browser
 ```
