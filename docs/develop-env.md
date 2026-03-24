@@ -95,6 +95,8 @@ Local development expects:
 
 ## Install app dependencies
 
+After copying the `.env` files, bootstrap the app dependencies:
+
 ```bash
 bundle install
 corepack enable
@@ -105,6 +107,7 @@ Notes:
 
 - `package.json` pins Yarn via the `packageManager` field, so use Corepack-managed Yarn instead of globally installed Yarn.
 - Node `20` is intentional for this project; the frontend dependency tree requires newer Node than `18`.
+- `bin/setup` now runs the JavaScript dependency install for you, but `yarn install` is still the direct command to use when frontend packages or `yarn.lock` change.
 
 ## Database setup (SQLite for local dev/test)
 
@@ -112,6 +115,14 @@ Notes:
 bundle exec rake db:create
 bundle exec rake db:migrate
 ```
+
+For a one-command bootstrap, you can also run:
+
+```bash
+bin/setup
+```
+
+`bin/setup` now installs both Ruby and JavaScript dependencies before preparing the local database.
 
 ## Start the app
 
@@ -132,6 +143,8 @@ RAILS_ENV=test bundle exec rake test
 ```bash
 RAILS_ENV=test bundle exec rails test:system
 ```
+
+Accessibility checks now run in the system test suite with `axe-core`, including coverage for the homepage and search results.
 
 ## Browser requirement for system tests
 

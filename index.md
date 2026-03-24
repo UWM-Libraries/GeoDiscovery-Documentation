@@ -19,4 +19,6 @@ nav_order: 1
 
 This website hosts internal documentation for the AGSL GeoDiscovery Geoportal.
 
+Latest documented application release: [v4.5.6 release notes](docs/releases).
+
 For theme documentation (useful for contributing to these docs), see [https://just-the-docs.github.io/just-the-docs/](https://just-the-docs.github.io/just-the-docs/)

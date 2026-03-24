@@ -40,6 +40,11 @@ After you copy the files, update them to include your database and Solr connecti
 - Solr port `8983`
 - Rails app port `3000`
 
+Production-style mail delivery and URL generation also expect these environment variables:
+
+- `ACTION_MAILER_FROM`
+- `ACTION_MAILER_HOST`
+
 ### Bundle dependencies
 
 The application's [RubyGem](https://rubygems.org/)
@@ -59,6 +64,8 @@ corepack enable
 yarn install
 ```
 
+`bin/setup` now runs this JavaScript install step automatically, but `yarn install` should still be run explicitly whenever frontend dependencies change.
+
 If the `Gemfile` has changed recently, you might need to run an additional command to get all the latest updates:
 
 ```bash
@@ -76,6 +83,14 @@ bundle exec rake db:create
 ```bash
 bundle exec rake db:migrate
 ```
+
+For a one-command local bootstrap, you can also run:
+
+```bash
+bin/setup
+```
+
+This now installs gems and JavaScript packages before preparing the database.
 
 ### Start the application
 
@@ -149,6 +164,11 @@ You can now do [feature development](develop) on your local machine to test out 
     > ```
     
 1. Set up shared directory to add database and solr credentials on the server that is hosting the instance of software (First time only)
+
+    Shared production configuration should include:
+
+    - `ACTION_MAILER_FROM`
+    - `ACTION_MAILER_HOST`
 
 1. Run capistrano command to deploy to directory.
 

@@ -101,6 +101,14 @@ Green lines are passed tests, red are failed and will tell you which line broke 
 {: .note }
 See the [tests directory](https://github.com/UWM-Libraries/GeoDiscovery/tree/main/test) in the repo.
 
+For UI-facing changes, also run the accessibility system checks:
+
+```bash
+RAILS_ENV=test bundle exec rails test:system test/system/accessibility_test.rb
+```
+
+These `axe-core` checks cover key public pages, including the homepage and search results. Treat them as part of the normal QA baseline for styling, navigation, and search-result changes.
+
 ## Push your branch to GitHub
 
 ```bash
@@ -119,6 +127,7 @@ The review process might look like this:
 1. Follow the instructions to [deploy to your local machine](https://uwm-libraries.github.io/GeoDiscovery-Documentation/docs/deploy.html#locally)
 1. Run the [linter](#run-the-ruby-linter) and [test suite](#run-the-test-suite)
 1. Start the application and make sure it works
+1. Confirm homepage and search-results accessibility checks still pass
 1. Review the changed files from the pull request in GitHub and make any comments.
 1. Make revisions or encourage the person who opened the PR to make changes.
 1. Merge the pull request into the main branch and delete the feature branch.
@@ -142,5 +151,4 @@ git push origin --tags
 From the GeoDiscovery directory, run `rails console` or `rails c`
 
 See the [Rails documentation](https://guides.rubyonrails.org/v3.1/command_line.html#rails-console) for more info
-
 

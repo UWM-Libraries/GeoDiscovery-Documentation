@@ -24,9 +24,12 @@ Default rows returned from Solr.
     * Most Aardvark fields shown by default, we may decide we want to add/remove
 * Sort values
 * Show tools (SMS, Email)
+    * Shared-record emails now include title, provider, access rights, description, and a permalink
 * Basemap for the map
 
 These things might be rendered through a helper method. Examples including truncating abstracts or the helper that renders HTML in the rights field (the link to our Copyright and Digital Collections policy page).
+
+Mailer configuration is now standardized around `ACTION_MAILER_FROM` and `ACTION_MAILER_HOST` so record-sharing emails and Devise-generated URLs use the same environment-driven settings.
 
 ## [./config/settings.yml](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/settings.yml)
 
@@ -102,7 +105,6 @@ contains some UWM customizations like the scrolltop feature
 ## [./app/assets/stylesheets](https://github.com/UWM-Libraries/GeoDiscovery/tree/main/app/assets/stylesheets)
 
 Various stylesheets to set color defaults, link colors, etc.
-
 
 
 

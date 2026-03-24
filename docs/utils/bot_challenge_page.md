@@ -27,22 +27,17 @@ Rack::Attack remains in the Gemfile but is not initialized.
 
 ```ruby
 # Gemfile
-gem "bot_challenge_page", "~> 0.4.0"
+gem "bot_challenge_page", "~> 1.1.0"
 gem "rack-attack", "~> 6.7"  # present but unused
 ```
 
-## ApplicationController Integration
+## Controller Integration
 
-The Turnstile challenge is enforced in `ApplicationController` via a `before_action`:
+As of GeoDiscovery `v4.5.6`, the app follows the gem's 1.x integration style:
 
-```ruby
-# app/controllers/application_controller.rb
-before_action do |controller|
-  BotChallengePage::BotChallengePageController.bot_challenge_enforce_filter(controller, immediate: true)
-end
-```
-
-This filter checks the session and the exempt logic to determine whether a Turnstile challenge is required.
+- `ApplicationController` includes the shared bot-challenge behavior
+- `CatalogController` applies protection to search and index traffic
+- Challenge exemptions are expressed through `skip_when` rules instead of the older inline `before_action` example
 
 ## Configuration
 
@@ -55,27 +50,15 @@ Key settings include:
 - `config.enabled` — Uses `Settings.turnstile.enabled` (disabled in test env)
 - `config.cf_turnstile_sitekey` and `..._secret_key` — Stored in `Settings.turnstile`
 - `config.redirect_for_challenge = false` — Render challenge inline
-- `config.rate_limited_locations = []` — No rate-limiting paths configured
+- `config.skip_when` — Defines requests that should bypass the challenge flow
+- IP safelists parsed from `TURNSTILE_IP_SAFELIST` as CIDR ranges
 
 ### Session Exemptions
 
 We track exemptions using session state. If a user passes a Turnstile challenge, they are considered exempt for the rest of the session.
 
-Additional exemption logic is defined in the `allow_exempt` lambda:
+Additional exemption logic is now centered on `skip_when` conditions in the initializer. In practice this ensures:
 
-```ruby
-config.allow_exempt = lambda do |controller, _|
-  exempt =
-    (controller.is_a?(CatalogController) &&
-     controller.params[:action].in?(%w[facet]) &&
-     controller.request.headers["sec-fetch-dest"] == "empty") ||
-    ip_safelist.map { |cidr| IPAddr.new(cidr) }.any? { |range| range.include?(controller.request.remote_ip) }
-  Rails.logger.warn "[Turnstile‑EXEMPT] IP: #{controller.request.remote_ip}, Exempt: #{exempt}"
-  exempt
-end
-```
-
-This ensures:
 - Search interface components (like facets) are not interrupted
 - Known IP ranges (set via `TURNSTILE_IP_SAFELIST`) are exempt
 
@@ -88,6 +71,13 @@ In `development` and `test`, the feature is typically disabled:
 ```ruby
 config.enabled = !Rails.env.test? && Settings.turnstile.enabled
 ```
+
+When documenting or debugging the feature, treat the initializer as the source of truth for:
+
+- `skip_when` exemptions
+- Turnstile site and secret keys
+- CIDR safelist parsing
+- Inline challenge rendering behavior
 
 ## Related Links
 

@@ -30,6 +30,7 @@ nav_order: 1.1
 * [Sidekiq](#sidekiq)
 * [Sprockets](#sprockets)
 * [sqlite3](#sqlite3)
+* [Vite Ruby](#vite-ruby)
 * [Whenever](#whenever)
 
 ## GeoBlacklight
@@ -56,6 +57,8 @@ An open-source, Ruby on Rails engine that provides a basic discovery interface f
 [rubyonrails.org](https://rubyonrails.org/)
 
 Sever-side web application framework written in Ruby that uses the MVC Framework (model-view-controller). Popular websites like GitHub, Twitch, and AirBNB are built using Ruby on Rails.
+
+GeoDiscovery `v4.5.6` updates Rails and related framework gems to `7.2.3.1`.
 
 [Top](#stack-and-dependencies)
 
@@ -94,14 +97,16 @@ The [`bot_challenge_page`](https://github.com/samvera-labs/bot_challenge_page) g
 
 We use this gem to prevent automated scraping and preserve application resources while avoiding false positives for search engine bots and legitimate users.
 
+GeoDiscovery `v4.5.6` updates this dependency from `0.4.0` to `1.1.0`.
+
 ### Key features:
 
 - JavaScript-based challenge, rendered inline
 - Session tracking (`bot_challenge_passed`) to avoid repeat prompts
-- Exemption logic based on IP allowlists and safe frontend actions
+- Exemption logic based on CIDR IP allowlists, `skip_when` conditions, and safe frontend actions
 - Configuration via Rails initializer
 
-Turnstile keys and exemptions are configured in [`config/initializers/bot_challenge_page.rb`](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/initializers/bot_challenge_page.rb). The gem is activated via `ApplicationController` and works with minimal customization.
+Turnstile keys and exemptions are configured in [`config/initializers/bot_challenge_page.rb`](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/initializers/bot_challenge_page.rb). The current integration follows the gem's 1.x controller pattern and keeps facet-fetch requests exempt so search UI components can load without interruption.
 
 {: .note }
 This approach proved more reliable than Rack::Attack in production, especially when facing IP-rotating bots or crawlers.
@@ -188,6 +193,19 @@ A small, fast, self-contained SQL database engine. Used in the dev and test envi
 
 [Top](#stack-and-dependencies)
 
+## Vite Ruby
+
+[vite-ruby.netlify.app](https://vite-ruby.netlify.app/)
+
+GeoDiscovery aligns its Vite dependencies in `v4.5.6` by pinning:
+
+- `vite_rails` to `~> 3.0.20`
+- `vite_ruby` to `~> 3.9.3`
+
+This keeps the Rails integration and Ruby-side Vite support on compatible releases.
+
+[Top](#stack-and-dependencies)
+
 ## Puma
 
 [Puma GitHub Repo](https://github.com/puma/puma)
@@ -228,6 +246,8 @@ This is an advanced search plugin for Blacklight.
 [Repo](https://github.com/geoblacklight/geoblacklight_sidecar_images)
 
 This GeoBlacklight plugin captures remote images from geographic web services and saves them locally. It borrows the concept of a SolrDocumentSidecar from Spotlight, to have an ActiveRecord-based "sidecar" to match each non-AR SolrDocument. This allows us to use ActiveStorage to attach images to our solr documents.
+
+GeoDiscovery `v4.5.6` updates this dependency from `~> 1.0` to `~> 1.1`. The same release restores split-search-result thumbnails by updating the generated image variant to `resize_to_fit: [200, 200]`.
 
 See [ActiveJob](#activejob)
 ,
@@ -289,6 +309,8 @@ System tests run via Capybara and a headless web browser, essentially loading a 
 the background and ensuring text or CSS selectors or XPATH expressions exist on the page.
 
 Capybara is only used in the test environment.
+
+GeoDiscovery `v4.5.6` adds automated accessibility checks with `axe-core` to the system test suite.
 
 [Top](#stack-and-dependencies)
 

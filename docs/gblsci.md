@@ -12,6 +12,8 @@ This project uses the
 [GeoBlacklight Sidecar Images](https://github.com/geoblacklight/geoblacklight_sidecar_images)
 gem to collect search result thumbnails.
 
+As of `v4.5.6`, split-view search results once again render sidecar thumbnails correctly. The fix uses a `resize_to_fit: [200, 200]` variant so images display reliably in the split results layout.
+
 Ensure Sidekiq and Redis are working as expected by running Sidekiq Monitor:
 
 ```ruby

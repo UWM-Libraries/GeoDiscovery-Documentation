@@ -8,12 +8,17 @@ nav_order: 12
 
 ## Combating web crawling bots
 
-Attempting to implement throttling and ip restriction for reducing web crawling by bots who ignore or do not comply with robots.txt.
+GeoDiscovery uses [`bot_challenge_page`](https://github.com/samvera-labs/bot_challenge_page/) with Cloudflare Turnstile to reduce abusive crawling on search and index pages while keeping normal discovery workflows usable.
 
-There is much discussion of this issue in the Geo4Lib and other related slack channels and other community dicussions.
+The current implementation follows the gem's 1.x controller and initializer patterns instead of the older inline enforcement style.
 
-We're attempting to implement [Bot Challenge Page](https://github.com/samvera-labs/bot_challenge_page/) from the Samvera community.
+### Exemption model
 
-We've set up a Cloudflare Turnstile under my account, but we might want to reconsider its ownership once it's in production. Maybe set up a digilib account?
+Challenge exemptions are intentionally narrow:
 
+- Facet-fetch requests can skip the challenge so the search interface remains responsive.
+- IP safelists are configured as CIDR ranges and parsed in the initializer.
+- Session state still prevents users from repeatedly seeing the challenge after a successful pass.
+
+For implementation details, see [Bot Challenge Page](utils/bot_challenge_page).
 
