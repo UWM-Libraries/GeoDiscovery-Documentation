@@ -16,6 +16,22 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
 
 ## Dependencies
 - Python 3.x
+  - `uwm:opendataharvest:setup_python_env` now prefers `python3.11`, then `python3.10`, then `python3.9`, and finally falls back to `python3`.
+  - On RHEL 8 servers, install Python 3.11 before rebuilding the venv when it is available:
+    ```bash
+    sudo dnf install -y python3.11 python3.11-pip
+    ```
+- ICU `uconv`
+  - Title transliteration during metadata normalization requires the ICU `uconv` binary to be installed and on `PATH`.
+  - On RHEL 8 servers, install it with:
+    ```bash
+    sudo dnf install -y icu
+    ```
+  - Verify the dependency with:
+    ```bash
+    which uconv
+    uconv --version
+    ```
 - Required libraries listed in `requirements.txt`:
   - `requests`
   - `pyyaml`
@@ -26,6 +42,10 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
 1. **Environment Setup**
    - Run the Rake task `uwm:opendataharvest:setup_python_env` to create the Python virtual environment.
    - Dependencies are installed via `setup_python_env.sh`.
+   - Verify the interpreter in the venv after setup:
+     ```bash
+     lib/opendataharvest/venv/bin/python3 --version
+     ```
 
 2. **Configuration**
    - Update `config.yaml` with data portal URLs and any specific dataset handling rules.
@@ -38,7 +58,7 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
   #...
     desc "Set up Python venv environment for opendataharvest"
     task :setup_python_env do
-      sh "lib/opendataharvest/setup_python_env.sh"
+      sh "lib/opendataharvest/src/setup_python_env.sh"
     end
   #...
   end
@@ -49,7 +69,7 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
   #...
     desc "Run the DCAT_Harvester.py Python script"
     task :harvest_dcat do
-      sh "lib/opendataharvest/venv/bin/python3 lib/opendataharvest/opendataharvest/DCAT_Harvester.py"
+      sh "lib/opendataharvest/venv/bin/python3 lib/opendataharvest/src/opendataharvest/DCAT_Harvester.py"
     end
   #...
   end
@@ -60,7 +80,7 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
   #...
     desc "Run the conversion scripts on GBL 1.0 metadata institutions"
     task :gbl1_to_aardvark do
-      sh "lib/opendataharvest/venv/bin/python3 lib/opendataharvest/gbl-1_to_aardvark/gbl_to_aardvark.py"
+      sh "lib/opendataharvest/venv/bin/python3 lib/opendataharvest/src/opendataharvest/gbl_to_aardvark.py"
     end
   #...
   end
