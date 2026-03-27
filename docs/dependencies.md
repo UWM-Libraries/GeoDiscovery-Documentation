@@ -25,11 +25,13 @@ nav_order: 1.1
 * [Noid](#noid)
 * [Passenger](#phusion-passenger)
 * [Puma](#puma)
+* [Python](#python)
 * [Redis](#redis)
 * [Ruby on Rails](#ruby-on-rails)
 * [Sidekiq](#sidekiq)
 * [Sprockets](#sprockets)
 * [sqlite3](#sqlite3)
+* [Unicode Tools (ICU)](#unicode-tools-icu)
 * [Vite Ruby](#vite-ruby)
 * [Whenever](#whenever)
 
@@ -140,6 +142,50 @@ A Ruby toolkit for managing geospatial metadata, including:
 > gem "geo_combine", git: "https://github.com/UWM-Libraries/GeoCombine.git", branch: "main"
 > ```
 > 
+
+[Top](#stack-and-dependencies)
+
+## Python
+
+GeoDiscovery's `opendataharvest` utilities run in a dedicated Python virtual environment under `lib/opendataharvest/venv`.
+
+The setup task prefers these interpreters in order:
+
+- `python3.11`
+- `python3.10`
+- `python3.9`
+- `python3`
+
+On RHEL 8 servers, install Python 3.11 before rebuilding the venv when it is available:
+
+```bash
+sudo dnf install -y python3.11 python3.11-pip
+```
+
+After setup, verify the interpreter with:
+
+```bash
+lib/opendataharvest/venv/bin/python3 --version
+```
+
+[Top](#stack-and-dependencies)
+
+## Unicode Tools (ICU)
+
+Title transliteration during harvested metadata normalization depends on the ICU `uconv` binary being installed and available on `PATH`.
+
+On RHEL 8 servers, install it with:
+
+```bash
+sudo dnf install -y icu
+```
+
+Verify the dependency with:
+
+```bash
+which uconv
+uconv --version
+```
 
 [Top](#stack-and-dependencies)
 

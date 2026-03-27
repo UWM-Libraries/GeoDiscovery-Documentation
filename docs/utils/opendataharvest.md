@@ -13,6 +13,7 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
 ## Functionalities
 - **DCAT Harvester**: The main script (`DCAT_Harvester.py`) fetches data from specified data portals.
 - **GBL 1.0 to Aardvark Converter**: Converts metadata from GBL 1.0 schema to Aardvark schema (`gbl_to_aardvark.py`).
+- **Aardvark Normalizer**: Updates harvested Aardvark records in place before indexing (`normalize.py`).
 
 ## Dependencies
 - Python 3.x
@@ -46,6 +47,7 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
      ```bash
      lib/opendataharvest/venv/bin/python3 --version
      ```
+   - On servers, the expected result is now Python 3.11 when `python3.11` is installed.
 
 2. **Configuration**
    - Update `config.yaml` with data portal URLs and any specific dataset handling rules.
@@ -85,6 +87,36 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
   #...
   end
   ```
+- **Normalize harvested Aardvark metadata**
+  ```ruby
+  namespace :opendataharvest do
+  #...
+    desc "Normalize harvested Aardvark metadata"
+    task :normalize_aardvark do
+      sh "lib/opendataharvest/venv/bin/python3 lib/opendataharvest/src/opendataharvest/normalize.py"
+    end
+  #...
+  end
+  ```
+
+## Server checks
+
+On a deployed server, these commands confirm the Python and ICU dependencies used by the normalization step:
+
+```bash
+cd /var/www/rubyapps/uwm-geoblacklight/current
+lib/opendataharvest/venv/bin/python3 --version
+which uconv
+uconv --version
+```
+
+The scheduled normalization/index path is driven by:
+
+```bash
+bin/geocombine_pull_and_index.sh
+```
+
+That script runs the conversion, normalization, indexing, and stale-record cleanup tasks in sequence.
 
 ## Scheduled Tasks
 - The DCAT Harvester script runs weekly:
@@ -106,6 +138,7 @@ GeoDiscovery/lib/
 │ │ │ ├── init.py
 │ │ │ ├── convert.py
 │ │ │ ├── gbl_to_aardvark.py
+│ │ │ ├── normalize.py
 │ │ │ └── data/
 │ │ │   ├── crosswalk.csv
 │ │ │   └── default_bbox.csv
