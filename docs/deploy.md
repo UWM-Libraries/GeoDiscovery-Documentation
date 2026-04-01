@@ -195,14 +195,11 @@ The directory is actually a shortcut to /var/www/rubyapps/uwm-geoblacklight/rele
 by a numerical version number according to it's creation date, e.g. `20240612212046/`
 
 {: .note }
-> OpenGeoMetadata files stored in /tmp/opengeometadata are not moved over to the new release as part of the deploy process.
-> [.env.production](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/.example.env.production)
-> should be modified to point [GeoCombine's](dependencies/.html#geocombine)
-> OGM_PATH environment variable to /var/www/rubyapps/uwm-geoblacklight/shared/tmp/opengeometadata.
+> OpenGeoMetadata harvest data is still an operational concern during deploys.
+> The app currently uses `tmp/opengeometadata` in its harvest configuration, while some production workflows override the harvest root to a shared server path.
+> After deploying, confirm the server is still reading from and writing to the intended OGM harvest root before running the full weekly harvest/index pipeline.
 >
-> ```bash
-> OGM_PATH=/var/www/rubyapps/uwm-geoblacklight/shared/tmp/opengeometadata
-> ```
+> A follow-up proposal to persist `tmp/opengeometadata` across deploys via Capistrano is being tracked in [GeoDiscovery issue #347](https://github.com/UWM-Libraries/GeoDiscovery/issues/347).
 
 {: .note }
 > If you get the following error:
@@ -220,8 +217,8 @@ by a numerical version number according to it's creation date, e.g. `20240612212
 Since schedule.rb, the file that Whenever uses to set up Cron jobs, is committed to version control,
 we might need to modify it depending on the environment you're deploying to.
 
-For example, I do not want the Cron job that pulls down metadata from OpenGeoMetadata to run on the 
-development site while testing new functionality for GeoCombine. 
+For example, you may not want the weekly metadata-refresh task to run on the
+development site while testing new functionality for GeoCombine.
 You can edit the [schedule.rb](https://github.com/UWM-Libraries/GeoDiscovery/blob/main/config/schedule.rb)
 file in the current release on LibLamp-Dev or LibLamp and then write the changes to the system's
 crontab by running...

@@ -6,6 +6,21 @@ nav_order: 1.3
 
 # Release Notes
 
+## v4.5.7 - 2026-04-01
+
+GeoDiscovery `v4.5.7` is an operations-focused release that consolidates the weekly metadata refresh workflow and reduces production alert noise.
+
+### Highlights
+
+- Replaced the older multi-step GeoCombine shell workflow with the unified `uwm:geocombine_pull_and_index` rake task.
+- Added in-place normalization for harvested Aardvark metadata before indexing.
+- Added targeted stale-record pruning for records no longer present in the current harvest set.
+- Updated the scheduled weekly metadata refresh to run the combined rake task directly.
+- Reduced exception-notification noise for missing-record requests and grouped repeated production failures.
+- Tuned production logging around the same operations hardening work.
+
+Source: [GitHub release](https://github.com/UWM-Libraries/GeoDiscovery/releases/tag/v4.5.7)
+
 ## v4.5.6 - 2026-03-24
 
 GeoDiscovery `v4.5.6` is a maintenance, UX, and operations release focused on polish and hardening.

@@ -11,9 +11,10 @@ parent: GeoDiscovery Utilities
 The OpenDataHarvest package is designed to automate the harvesting and conversion of metadata records. This includes scripts for managing the environment, running scheduled tasks, and handling specific data conversion needs.
 
 ## Functionalities
-- **DCAT Harvester**: The main script (`DCAT_Harvester.py`) fetches data from specified data portals.
-- **GBL 1.0 to Aardvark Converter**: Converts metadata from GBL 1.0 schema to Aardvark schema (`gbl_to_aardvark.py`).
+- **DCAT Harvester**: The main script (`DCAT_Harvester.py`) fetches data from specified data portals and validates harvested records against the configured Aardvark JSON schema.
+- **GBL 1.0 to Aardvark Converter**: Converts metadata from GBL 1.0 schema to Aardvark schema (`gbl_to_aardvark.py`) for selected legacy repositories.
 - **Aardvark Normalizer**: Updates harvested Aardvark records in place before indexing (`normalize.py`).
+- **Weekly Combined Pipeline**: The `uwm:geocombine_pull_and_index` rake task pulls configured OGM repositories, harvests DCAT metadata, converts legacy records, normalizes harvested Aardvark metadata, indexes into Solr, and prunes stale Solr records.
 
 ## Dependencies
 - Python 3.x
@@ -50,8 +51,9 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
    - On servers, the expected result is now Python 3.11 when `python3.11` is installed.
 
 2. **Configuration**
-   - Update `config.yaml` with data portal URLs and any specific dataset handling rules.
-   - Define default bounding boxes in `default_bbox.csv`.
+   - Update `config/opendataharvest.yaml` with data portal URLs and any specific dataset handling rules.
+   - Define default bounding boxes in `lib/opendataharvest/src/opendataharvest/data/default_bbox.csv`.
+   - The default app-relative harvest root is `tmp/opengeometadata`.
 
 ## Rake Tasks
 - **Setup Python Environment**
@@ -98,6 +100,11 @@ The OpenDataHarvest package is designed to automate the harvesting and conversio
   #...
   end
   ```
+- **Run the full weekly harvest/index pipeline**
+  ```ruby
+  bundle exec rake uwm:geocombine_pull_and_index
+  ```
+  This task pulls configured OGM repositories, runs `uwm:opendataharvest:harvest_dcat`, `uwm:opendataharvest:gbl1_to_aardvark`, `uwm:opendataharvest:normalize_aardvark`, `geocombine:index`, and `uwm:index:prune_stale`.
 
 ## Server checks
 
@@ -110,19 +117,19 @@ which uconv
 uconv --version
 ```
 
-The scheduled normalization/index path is driven by:
+To confirm the active weekly schedule from the deployed app:
 
 ```bash
-bin/geocombine_pull_and_index.sh
+crontab -l | grep uwm:geocombine_pull_and_index
 ```
 
-That script runs the conversion, normalization, indexing, and stale-record cleanup tasks in sequence.
+The current production cron entry runs the rake task directly rather than a wrapper shell script.
 
 ## Scheduled Tasks
-- The DCAT Harvester script runs weekly:
+- The combined weekly metadata refresh now runs on Wednesdays:
   ```ruby
-    every :monday, at: "3:30am", roles: [:app] do
-      rake "uwm:opendataharvest:harvest_dcat"
+    every :wednesday, at: "3:00am", roles: [:app] do
+      rake "uwm:geocombine_pull_and_index"
     end
   ```
 
@@ -136,12 +143,14 @@ GeoDiscovery/lib/
 │ │ ├── opendataharvest/
 │ │ │ ├── DCAT_Harvester.py
 │ │ │ ├── init.py
+│ │ │ ├── classify.py
 │ │ │ ├── convert.py
 │ │ │ ├── gbl_to_aardvark.py
 │ │ │ ├── normalize.py
 │ │ │ └── data/
 │ │ │   ├── crosswalk.csv
-│ │ │   └── default_bbox.csv
+│ │ │   ├── default_bbox.csv
+│ │ │   └── agsl-opendata-harvest.json
 │ │ ├── requirements.txt
 │ │ └── setup_python_env.sh
 │ └── venv/...

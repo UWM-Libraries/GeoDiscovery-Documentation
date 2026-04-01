@@ -132,6 +132,14 @@ bundle exec rake uwm:server
 
 This task starts the local app stack plus the local Solr wrapper. Java must be installed or Solr startup will fail.
 
+If the Rails app opens at `http://localhost:3000` but Solr Admin does not open from the Windows side at `http://localhost:8983/solr/`, WSL may not be forwarding port `8983` cleanly. In that case, open the Solr Admin UI from inside WSL instead:
+
+```bash
+xdg-open http://127.0.0.1:8983/solr/
+```
+
+This uses the Linux-side browser integration and bypasses the Windows localhost forwarding issue.
+
 ## Run tests
 
 Run tests explicitly in the test environment so commands do not run against development data:

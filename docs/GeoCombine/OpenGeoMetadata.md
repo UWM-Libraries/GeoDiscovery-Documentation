@@ -15,7 +15,7 @@ See the
 [repository](https://github.com/OpenGeoMetadata/GeoCombine)
 for GeoCombine
 
-## Clone all OGM repos to /tmp:
+## Clone all OGM repos to the local harvest root
 
 ```ruby
 bundle exec rake geocombine:clone
@@ -23,7 +23,7 @@ bundle exec rake geocombine:clone
 
 However, this gives us no control over what repositories we pull down.
 
-## Clone a specific OGM repo to /tmp:
+## Clone a specific OGM repo
 
 ```ruby
 bundle exec rake geocombine:clone[edu.stanford.purl]
@@ -31,30 +31,24 @@ bundle exec rake geocombine:clone[edu.stanford.purl]
 
 This use case is more common.
 
-You can check to see what repositories are cloned in
-`../GeoDiscovey/tmp/opengeometadata`
+You can check to see what repositories are cloned in the configured harvest root,
+typically `tmp/opengeometadata` in local development.
 
-Right now these are the repositories being regularly pulled down:
+Example:
 
 ```bash
 ls tmp/opengeometadata/
-edu.illinois  edu.msu  edu.osu  edu.purdue   edu.uchicago  edu.umd    edu.umn  edu.uwm  edu.wisc.aardvark
-edu.indiana   edu.nyu  edu.psu  edu.rutgers  edu.uiowa     edu.umich  edu.unl  edu.uwm.converted
+edu.berkeley   edu.columbia  edu.cornell   edu.illinois  edu.indiana
+edu.msu        edu.nyu       edu.osu       edu.princeton.arks  edu.purdue
+edu.rutgers    edu.stanford.purl  edu.uchicago  edu.uiowa  edu.umd
+edu.umich      edu.umn       edu.unl       edu.utexas     edu.uwm
+edu.wisc
 ```
 
 {: .note }
-> edu.wisc.aardvark is a repository on the UWM Libraries GitHub with a version of UW-Madison's Metadata
+> Some repositories already publish Aardvark metadata directly.
 >
-> edu.uwm.converted is a repository on the UWM Libraries GitHub with a version of other institutions' metadata
->
-> Both of these repositories have Aardvark version metadata that was converted by UWM Libraries staff from GBL 1.0 version metadata.
->
-> These repositories can be cloned with git directly, rather than a rake task.
-> Once they are cloned, they can be updated just like the other repos with:
-> 
-> ```bash
-> bundle exec rake geombine:pull[edu.wisc.aardvark]
-> ```
+> Others are still legacy GBL 1.0 sources and are converted locally by `uwm:opendataharvest:gbl1_to_aardvark` during the weekly pipeline.
 
 ## Update local OpenGeoMetadata repositories
 
@@ -65,8 +59,7 @@ bundle exec rake geocombine:pull[repo]
 This will update (via `git pull`) the specified repo.
 
 {: .warning }
-Running it without a specified repo seems functionally equivalent to `rake geocombine:clone` which will
-pull everything from OGM, even repos we might not want!
+Running it without a specified repo may pull more repositories than the curated set used by GeoDiscovery.
 
 
 ## Index cloned repos into Solr
@@ -75,17 +68,24 @@ pull everything from OGM, even repos we might not want!
 bundle exec rake geocombine:index
 ```
 
+GeoDiscovery also provides a higher-level task:
+
+```ruby
+bundle exec rake uwm:geocombine_pull_and_index
+```
+
+That combined task pulls the configured repositories, harvests DCAT metadata, converts legacy records, normalizes harvested Aardvark metadata, indexes into Solr, and prunes stale Solr records.
+
 {: .warning }
 > Depending on your environment, you may need to set...
 > ```bash
 > RAILS_ENV=production
 > SCHEMA_VERSION=Aardvark
 > SOLR_URL=http://127.0.0.1:8983/solr/blacklight-core
-> OGM_PATH=tmp/opengeometadata/edu.uwm/metadata-aardvark/
+> OGM_PATH=tmp/opengeometadata
 > ```
 >
-> The last environment variable is also useful for targeting specific directories for indexing.
-> But could have wider use managing the location of stored JSON metadata documents.
+> `OGM_PATH` can also be pointed at a narrower subtree when you want to target a specific institution or metadata subset.
 > 
 
 {: .note}
@@ -102,5 +102,4 @@ bundle exec rake geocombine:index
 {: .warning }
 If these functions don't work, ensure your current user has read/write access to the `.git/` directory of the targeted repo. 
 Permission issues can arise.
-
 

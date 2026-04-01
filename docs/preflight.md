@@ -171,13 +171,13 @@ cd /var/www/rubyapps/uwm-geoblacklight/current
 bundle exec ruby -e 'require "nokogiri"; puts "nokogiri #{Nokogiri::VERSION}"'
 ```
 
-**Expected/confirmed on `liblamp8`:**
+**Expected/confirmed on `liblamp8` for the current production release line:**
 
 * Ruby (RVM): `ruby 3.2.1`
 * Bundler: `2.5.16`
 * Bundler `deployment = true`
 * Bundler `without = [:development, :test]`
-* Nokogiri loads cleanly: `nokogiri 1.17.2`
+* Nokogiri loads cleanly: `nokogiri 1.19.2`
 
 ---
 
@@ -206,12 +206,12 @@ Because Capistrano runs commands in a non-interactive shell, verify versions the
 bash -lc 'node -v && npm -v && yarn -v'
 ```
 
-**Expected/confirmed on `liblamp8`:**
+**Expected/confirmed on `liblamp8` for the current production release line:**
 
 * Node: `v20.20.0`
 * npm: `10.8.2`
 * yarn: `1.22.22`
-* Rails: `7.2.2.1`
+* Rails: `7.2.3.1`
 * Non-interactive shell sees node/npm/yarn correctly
 
 ---
@@ -416,7 +416,6 @@ Only **one block** should remain and all jobs should reference:
 Ensure the Solr watchdog job is still present: `*/2 * * * * /usr/local/bin/check_solr.sh`
 
 This prevents duplicate scheduled jobs from running across multiple releases.
-
 
 
 

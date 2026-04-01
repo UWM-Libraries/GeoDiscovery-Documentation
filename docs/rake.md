@@ -66,6 +66,21 @@ for information about environment variables for
 metadata schema version (`SCHEMA VERSION`)
 and the url for Solr (`SOLR_URL`).
 
+#### Run the full weekly harvest/index pipeline
+
+```ruby
+bundle exec rake uwm:geocombine_pull_and_index
+```
+
+This task:
+
+- pulls the configured OpenGeoMetadata repositories
+- harvests DCAT metadata
+- converts selected legacy GBL 1.0 repositories to Aardvark
+- normalizes harvested Aardvark metadata in place
+- indexes the resulting documents into Solr
+- deletes stale Solr records no longer present in the current harvest set
+
 
 ### Task Name
 
@@ -203,4 +218,3 @@ rake yarn:install            # Install all JavaScript dependencies as specified 
 rake zeitwerk:check          # Checks project structure for Zeitwerk compatibility
 
 ```
-
