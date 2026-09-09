@@ -171,13 +171,13 @@ cd /var/www/rubyapps/uwm-geoblacklight/current
 bundle exec ruby -e 'require "nokogiri"; puts "nokogiri #{Nokogiri::VERSION}"'
 ```
 
-**Expected/confirmed on `liblamp8` for the current production release line:**
+**Application versions expected for `v4.7.0` and server settings to verify:**
 
 * Ruby (RVM): `ruby 3.2.1`
 * Bundler: `2.5.16`
 * Bundler `deployment = true`
 * Bundler `without = [:development, :test]`
-* Nokogiri loads cleanly: `nokogiri 1.19.2`
+* Nokogiri loads cleanly: `nokogiri 1.19.4`
 
 ---
 
@@ -206,12 +206,12 @@ Because Capistrano runs commands in a non-interactive shell, verify versions the
 bash -lc 'node -v && npm -v && yarn -v'
 ```
 
-**Expected/confirmed on `liblamp8` for the current production release line:**
+**Application versions expected for `v4.7.0` and toolchain checks:**
 
-* Node: `v20.20.0`
-* npm: `10.8.2`
+* Node: `v24.19.0`
 * yarn: `1.22.22`
 * Rails: `7.2.3.1`
+* npm reports a version and is available on `PATH`
 * Non-interactive shell sees node/npm/yarn correctly
 
 ---
@@ -279,7 +279,7 @@ Always deploy using an explicit tag.
 ```bash
 cd ~/GeoDiscovery
 git fetch --tags
-bundle exec cap production deploy BRANCH=v4.5.5
+bundle exec cap production deploy BRANCH=v4.7.0
 ```
 
 Capistrano will:
@@ -290,6 +290,8 @@ Capistrano will:
 - compile assets
 - update the `current` symlink
 - restart Passenger
+
+For `v4.7.0`, also copy the updated `solr/conf/solrconfig.xml` into the active Solr core configuration and reload the core. A reindex is not required. Confirm that `CARTO_BASEMAP_API_KEY` is set in the deployed environment if the CARTO basemap should display without an API-key watermark.
 
 {: .warning }
 > ### Bundler deployment failure: `Ignoring <gem> because its extensions are not built`
@@ -416,7 +418,5 @@ Only **one block** should remain and all jobs should reference:
 Ensure the Solr watchdog job is still present: `*/2 * * * * /usr/local/bin/check_solr.sh`
 
 This prevents duplicate scheduled jobs from running across multiple releases.
-
-
 
 

@@ -6,6 +6,28 @@ nav_order: 1.3
 
 # Release Notes
 
+## v4.7.0 - 2026-09-09
+
+GeoDiscovery `v4.7.0` upgrades the application to GeoBlacklight `4.7.0` and incorporates the corresponding frontend package.
+
+### Highlights
+
+- Adopted GeoBlacklight's CARTO basemap configuration and API key support, replacing local CARTO integration overrides.
+- Corrected Solr query and phrase boosting for multivalued description, publisher, and identifier fields.
+- Updated Node.js to `24.19.0` to match production.
+- Updated current Ruby and JavaScript dependencies.
+- Configured CI to run unit and system tests together.
+- Expanded CI coverage for GeoCombine harvesting, stale-record pruning, and transliterated title behavior.
+- Added planning guidance for a future GeoBlacklight 5 upgrade.
+
+### Deployment notes
+
+- Copy the updated `solr/conf/solrconfig.xml` into the deployed Solr core configuration and reload the core. A reindex is not required.
+- Set `CARTO_BASEMAP_API_KEY` in the deployed environment to enable the CARTO basemap without an API-key watermark.
+- GeoBlacklight 5 and GeoCombine 0.11 upgrades remain separate future work.
+
+Source: [GitHub release](https://github.com/UWM-Libraries/GeoDiscovery/releases/tag/v4.7.0)
+
 ## v4.5.7 - 2026-04-01
 
 GeoDiscovery `v4.5.7` is an operations-focused release that consolidates the weekly metadata refresh workflow and reduces production alert noise.

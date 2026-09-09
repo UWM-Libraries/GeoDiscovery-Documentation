@@ -96,12 +96,14 @@ bundle exec standardrb --fix
 RAILS_ENV=test bundle exec rake ci
 ```
 
-Green lines are passed tests, red are failed and will tell you which line broke .
+This task runs the complete unit and system test suite against an isolated managed Solr instance. CI uses the same task.
+
+Green lines are passed tests; failures identify the affected test and line.
 
 {: .note }
 See the [tests directory](https://github.com/UWM-Libraries/GeoDiscovery/tree/main/test) in the repo.
 
-For UI-facing changes, also run the accessibility system checks:
+For UI-facing changes, you can also run the accessibility system checks directly while iterating:
 
 ```bash
 RAILS_ENV=test bundle exec rails test:system test/system/accessibility_test.rb
@@ -151,4 +153,3 @@ git push origin --tags
 From the GeoDiscovery directory, run `rails console` or `rails c`
 
 See the [Rails documentation](https://guides.rubyonrails.org/v3.1/command_line.html#rails-console) for more info
-

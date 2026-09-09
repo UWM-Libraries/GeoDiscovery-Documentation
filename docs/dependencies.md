@@ -41,6 +41,8 @@ nav_order: 1.1
 
 Open-source, Ruby on Rails software application for discovery geospatial content based on the open-source software project Blacklight.
 
+GeoDiscovery `v4.7.0` uses GeoBlacklight `4.7.0` and the matching `@geoblacklight/frontend` `~4.7.0` package.
+
 {: .note }
 Blacklight and GeoBlacklight are unlike many Ruby on Rails applications in that they use Apache Solr as a data store rather than a relational database.
 
@@ -51,6 +53,8 @@ Blacklight and GeoBlacklight are unlike many Ruby on Rails applications in that 
 [projectblacklight.org](http://projectblacklight.org/)
 
 An open-source, Ruby on Rails engine that provides a basic discovery interface for searching an Apache Solr index, including fielded searching, applyying and removing facet constraints, sorting and paginating through search results, and more.
+
+GeoDiscovery `v4.7.0` uses Blacklight `7.42.x`.
 
 [Top](#stack-and-dependencies)
 

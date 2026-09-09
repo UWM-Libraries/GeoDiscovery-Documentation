@@ -45,6 +45,10 @@ Production-style mail delivery and URL generation also expect these environment 
 - `ACTION_MAILER_FROM`
 - `ACTION_MAILER_HOST`
 
+The CARTO basemap accepts an optional API key:
+
+- `CARTO_BASEMAP_API_KEY` — enables the CARTO basemap without an API-key watermark
+
 ### Bundle dependencies
 
 The application's [RubyGem](https://rubygems.org/)
@@ -190,6 +194,12 @@ bundle exec cap production deploy
 These commands will run [Capistrano](dependencies.html#capistrano) and deploy the application to development
 or production respectively.
 
+For a production release, deploy an explicit tag, for example:
+
+```bash
+bundle exec cap production deploy BRANCH=v4.7.0
+```
+
 If it's sucessful, it will be saved in the current-release directory found at /var/www/rubyapps/uwm-geoblacklight/current/.
 The directory is actually a shortcut to /var/www/rubyapps/uwm-geoblacklight/releases/_latest_ where _latest_ is represented
 by a numerical version number according to it's creation date, e.g. `20240612212046/`
@@ -200,6 +210,16 @@ by a numerical version number according to it's creation date, e.g. `20240612212
 > After deploying, confirm the server is still reading from and writing to the intended OGM harvest root before running the full weekly harvest/index pipeline.
 >
 > A follow-up proposal to persist `tmp/opengeometadata` across deploys via Capistrano is being tracked in [GeoDiscovery issue #347](https://github.com/UWM-Libraries/GeoDiscovery/issues/347).
+
+### Update the Solr core configuration for v4.7.0
+
+GeoDiscovery `v4.7.0` corrects query and phrase boosting for multivalued description, publisher, and identifier fields. After deploying the application:
+
+1. Copy the deployed `solr/conf/solrconfig.xml` into the active Solr core configuration.
+2. Reload the Solr core.
+3. Run a representative keyword and phrase search as a smoke test.
+
+A reindex is not required for this configuration-only change.
 
 {: .note }
 > If you get the following error:

@@ -49,12 +49,12 @@ use this file to run scheduled tasks.
 and
 [Whenever](https://github.com/javan/whenever) to write the crontab entries
 
-* Harvest thumbnail images for search results
-* Build the sitemap
 * Clean up anonymous user accounts created by search sessions
 * Clean up recent anonymous search records
-* Run the weekly combined GeoCombine/DCAT harvest, normalization, indexing, and stale-record pruning pipeline
-* Harvest and index Allmaps sidecar data
+* Harvest and index Allmaps sidecar data weekly
+* Run the combined GeoCombine/DCAT harvest, normalization, indexing, and stale-record pruning pipeline weekly
+* Build the sitemap after the weekly metadata refresh
+* Retry thumbnail harvesting and purge thumbnail and Allmaps orphans monthly
 
 ```bash
 # Clear the current crontab for the geoblacklight user
@@ -74,22 +74,27 @@ whenever -w
 > [geoblacklight@liblamp-dev8 current]$ crontab -l
 > */2 * * * * /usr/local/bin/check_solr.sh
 >
-> # Begin Whenever generated tasks for: geodiscovery_production at: 2026-04-01 12:27:02 -0500
-> 5 0 * * 0 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake gblsci:images:harvest_retry --silent'
->
-> 30 2 * * 0 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake blacklight_allmaps:sidecars:harvest:allmaps --silent'
->
-> 30 2 * * 0 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake blacklight_allmaps:index:georeferenced_facet --silent'
->
-> 30 0 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake sitemap:refresh --silent'
+> # Begin Whenever generated tasks for: geodiscovery_production
 >
 > 30 1 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake devise_guests:delete_old_guest_users[2] --silent'
 >
 > 0 2 * * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake blacklight:delete_old_searches[7] --silent'
 >
-> 0 3 * * 3 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake uwm:geocombine_pull_and_index --silent'
+> 0 3 * * 0 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake blacklight_allmaps:sidecars:harvest:allmaps --silent'
+>
+> 0 7 * * 0 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake blacklight_allmaps:index:georeferenced_facet --silent'
+>
+> 0 4 * * 3 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake uwm:geocombine_pull_and_index --silent'
+>
+> 0 4 * * 4 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake sitemap:refresh --silent'
+>
+> 0 1 1 * * /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake gblsci:images:harvest_retry --silent'
+>
+> 0 4 8-14 * 1 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake gblsci:images:harvest_purge_orphans --silent'
+>
+> 0 4 15-21 * 2 /bin/bash -l -c 'cd /var/www/rubyapps/uwm-geoblacklight/current && RAILS_ENV=production bundle exec rake blacklight_allmaps:sidecars:purge_orphans --silent'
 
-> # End Whenever generated tasks for: geodiscovery_production at: 2026-04-01 12:27:02 -0500
+> # End Whenever generated tasks for: geodiscovery_production
 
 ```
 
@@ -111,7 +116,6 @@ contains some UWM customizations like the scrolltop feature
 ## [./app/assets/stylesheets](https://github.com/UWM-Libraries/GeoDiscovery/tree/main/app/assets/stylesheets)
 
 Various stylesheets to set color defaults, link colors, etc.
-
 
 
 

@@ -66,7 +66,7 @@ mise doctor
 - GeoDiscovery uses project-local runtime versions declared in `mise.toml`.
 - Current project runtime targets are:
   - `ruby = "3.2.1"`
-  - `node = "20"`
+  - `node = "24.19.0"`
 
 The repository also includes `.ruby-version` and Ruby pinning in `Gemfile` for compatibility, but `mise.toml` is the preferred multi-runtime local-dev setup.
 
@@ -106,7 +106,7 @@ yarn install
 Notes:
 
 - `package.json` pins Yarn via the `packageManager` field, so use Corepack-managed Yarn instead of globally installed Yarn.
-- Node `20` is intentional for this project; the frontend dependency tree requires newer Node than `18`.
+- Node `24.19.0` matches the project pin and the production runtime.
 - `bin/setup` now runs the JavaScript dependency install for you, but `yarn install` is still the direct command to use when frontend packages or `yarn.lock` change.
 
 ## Database setup (SQLite for local dev/test)
