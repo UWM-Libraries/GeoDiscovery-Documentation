@@ -93,6 +93,10 @@ Blacklight and GeoBlacklight use Solr as a data store. Metadata is ingested and 
 
 Our production database for the application. MariaDB is a community-developed, commercially supported fork of the MySQL relational database management system.
 
+Production connections and new database objects use `utf8mb4` with `utf8mb4_bin` collation. The database default must match the connection settings; otherwise migrations that do not specify a charset inherit MariaDB's historical `latin1_swedish_ci` default. This is especially important for Allmaps IIIF manifests, which can contain Unicode characters outside `latin1`.
+
+GeoDiscovery includes an idempotent migration that sets the database default and converts `blacklight_allmaps_sidecars` to `utf8mb4_bin`. It skips the table rebuild when the table already has the target collation and does nothing for local SQLite databases.
+
 [Top](#stack-and-dependencies)
 
 ## Bot Challenge Page

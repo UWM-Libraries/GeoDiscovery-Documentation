@@ -174,7 +174,7 @@ bundle exec ruby -e 'require "nokogiri"; puts "nokogiri #{Nokogiri::VERSION}"'
 **Application versions expected for `v4.7.0` and server settings to verify:**
 
 * Ruby (RVM): `ruby 3.2.1`
-* Bundler: `2.5.16`
+* Bundler: `2.5.4`
 * Bundler `deployment = true`
 * Bundler `without = [:development, :test]`
 * Nokogiri loads cleanly: `nokogiri 1.19.4`
@@ -232,10 +232,10 @@ Snapshot Redis memory use:
 redis-cli info memory | head -n 40
 ```
 
-**Expected/confirmed on `liblamp8`:**
+**Expected on `liblamp8`:**
 
 * `PONG`
-* Memory use ~`40MB` (healthy)
+* Memory use is consistent with the current queue depth and leaves adequate host memory available
 
 ## Solr
 
@@ -326,16 +326,24 @@ For `v4.7.0`, also copy the updated `solr/conf/solrconfig.xml` into the active S
 
 ---
 
-## 3. Resume Sidekiq (production server)
+## 3. Restart Sidekiq (production server)
 
 After deploy completes:
 
 ```bash
-sudo systemctl kill -s CONT sidekiq
+sudo systemctl restart sidekiq
 sudo systemctl status sidekiq --no-pager
 ```
 
-This allows Sidekiq to begin processing jobs again.
+Sidekiq's `TSTP` handling puts the process into an internal quiet state; sending `CONT` does not undo that state. Restarting after `busy=0` creates a fresh worker process that begins accepting jobs again without interrupting active work.
+
+For a large queue, monitor progress and failures periodically:
+
+```bash
+RAILS_ENV=production bundle exec rails runner 'require "sidekiq/api"; s=Sidekiq::Stats.new; puts "processed=#{s.processed} failed=#{s.failed} enqueued=#{s.enqueued} retries=#{s.retry_size} dead=#{s.dead_size} busy=#{s.workers_size}"'
+```
+
+The queue is draining when `processed` increases while `enqueued` and `retries` trend toward zero. Investigate before continuing if `failed` increases repeatedly or worker memory grows without stabilizing.
 
 ---
 
@@ -418,5 +426,3 @@ Only **one block** should remain and all jobs should reference:
 Ensure the Solr watchdog job is still present: `*/2 * * * * /usr/local/bin/check_solr.sh`
 
 This prevents duplicate scheduled jobs from running across multiple releases.
-
-
