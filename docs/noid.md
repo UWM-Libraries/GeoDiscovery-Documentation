@@ -6,27 +6,24 @@ nav_order: 5
 
 # Noid
 
-[Main Documentation](https://metacpan.org/dist/Noid/view/noid)
+GeoDiscovery uses [Noid 0.424](https://metacpan.org/dist/Noid/view/noid) to maintain ARK identifiers in the UWM namespace. The production minter runs on `liblamp8.ad.uwm.edu` and uses Berkeley DB.
 
-## Setting up the database on a new env:
+## Production configuration
 
-`noid dbcreate gmgs.reeeeeek long 77981 "University of Wisconsin-Milwaukee Libraries" gmgs`
+| Setting | Value |
+| --- | --- |
+| NAAN | `77981` |
+| SubNAA and shoulder | `gmgs` |
+| Template | `gmgs.reeeeeek` |
+| Database directory | `/var/www/noid/gmgs/gmgs_public/gmgs` |
+| Database file | `/var/www/noid/gmgs/gmgs_public/gmgs/NOID/noid.bdb` |
+| Administrative CGI | `https://digilib-admin.uwm.edu/noidu_gmgs` |
 
-`gmgs.reeeeek`
+The old `digilib-dev.uwm.edu` endpoint is not an operational development service. Use a newly created, isolated scratch database for testing.
 
-This is the template for the identifiers you're minting. Here’s how it breaks down:
+The production database directory and files are owned by `apache:apache`. Its expected SELinux type is `httpd_sys_content_t`. Apache runs the administrative CGI as `apache`; its `RewriteMap` resolver process is started by the root Apache parent.
 
-`gmgs.` is a fixed prefix for our identifiers (in this case, a "shoulder" that represents a sub-namespace within the larger namespace).
-    
-`r` stands for a random character (can be any letter or digit).
-    
-`eeee` stands for exact characters (usually letters or digits).
-    
-`k` stands for a check digit (ensures integrity and helps prevent typographical errors).
-
-`long`
-
-This is the term that defines how many identifiers the system can mint and how they behave: long means a very large identifier space, typically meaning the system won’t run out of identifiers for a long time. Other options include short or medium, where short means identifiers can be reused when the space is exhausted.
+## Identifier template
 
 `77981`
 
@@ -40,11 +37,80 @@ This is the NAA or Name Assigning Authority in a human-readable format, which co
 
 This is the SubNAA or shoulder, which is a namespace within your organization (in this case, gmgs). It allows for further subdivision of the identifier space. You use this shoulder to create identifiers like ark:/77981/
 
-## URLS:
+## Testing and experimenting
 
-Production: https://digilib-admin.uwm.edu/noidu_gmgs
+Create an equivalent empty minter with:
 
-Development: https://digilib-dev.uwm.edu/noidu_gmgs
+```shell
+PERL5LIB=/usr/local/share/perl5 \
+/usr/bin/perl -T -w -I/usr/local/share/perl5 /usr/local/bin/noid \
+  -f /path/to/gmgs \
+  dbcreate gmgs.reeeeeek long 77981 \
+  "University of Wisconsin-Milwaukee Libraries" gmgs
+```
+
+In `gmgs.reeeeeek`:
+
+- `gmgs` is the fixed prefix. The period separates the prefix from the mask and is not part of the identifier.
+- `r` selects quasi-random generation; it is not an identifier character.
+- Each of the six `e` positions is an extended digit from `0123456789bcdfghjkmnpqrstvwxz`.
+- `k` is the final computed check character.
+
+This produces identifiers such as `77981/gmgsh41jm0c`. The `long` term declares these identifiers non-reassignable; it does not select the namespace size or permit recycling.
+
+## GeoDiscovery bindings
+
+Every retained identifier is held so a rebuilt random minter cannot mint it again. A metadata record has these bindings:
+
+| Element | Value |
+| --- | --- |
+| `identifier` | `ark:/77981/<noid>` |
+| `ogm_aardvark_id` | `ark:-77981-<noid>` |
+| `title` | Aardvark title |
+| `access` | Aardvark access value |
+| `where` | `https://geodiscovery.uwm.edu/catalog/ark:-77981-<noid>` |
+| `download` | Direct download URL, when one exists |
+
+Use `bind set` for reconstruction: it creates a missing binding or replaces the current value. Do not use `add`, which appends to an existing value.
+
+Examples:
+
+```shell
+noid -f /path/to/gmgs hold set 77981/gmgsh41jm0c
+noid -f /path/to/gmgs bind set 77981/gmgsh41jm0c where \
+  https://geodiscovery.uwm.edu/catalog/ark:-77981-gmgsh41jm0c
+noid -f /path/to/gmgs fetch 77981/gmgsh41jm0c
+noid -f /path/to/gmgs get 77981/gmgsh41jm0c where
+```
+
+`hold set` is not idempotent in Noid 0.424: repeating it for an already held identifier increments the administrative `:/held` counter. Before applying holds to an existing database, compare the requested identifiers with the actual `:/h:` keys. A clean reconstruction avoids this discrepancy by creating a fresh database and applying each unique hold exactly once.
+
+## Safe reconstruction procedure
+
+Never rebuild directly in the live directory.
+
+1. Export and validate the complete authoritative Aardvark metadata set.
+2. Build a deterministic manifest containing every hold and binding. Preserve valid identifiers already issued but absent from the current metadata as hold-only entries.
+3. Create a fresh database in an isolated directory with the exact production template and authority settings.
+4. Apply holds and bindings with native Noid commands. Run commands in bounded chunks; Noid 0.424 can exhaust file descriptors during a long, single-process bulk run.
+5. Dump the completed database and verify its holds and bindings exactly against the manifest. Confirm that nothing was minted (`:/oacounter: 0`).
+6. Preserve the old live database, stop Apache, install the verified replacement, set ownership to `apache:apache`, run `restorecon`, and start Apache.
+7. Verify `dbinfo` as `apache` and fetch representative public, restricted, downloadable, and hold-only identifiers through the administrative CGI.
+
+Keep the manifest, command file, checksums, verification output, and displaced database together as the recovery record.
+
+## Operational cautions
+
+- Always give `-f`; do not depend on an ambient `NOID` variable.
+- On `liblamp8`, set `PERL5LIB=/usr/local/share/perl5` when invoking the installed Perl utility directly.
+- `dbinfo`, `fetch`, and `get` are read-only. `hold`, `bind`, `mint`, `queue`, and `dbcreate` change state.
+- There is no safe “unmint.” Treat issued long-term ARKs as permanent.
+- Prefer native command files prepared and tested off-server; production does not require the Python reconstruction tooling.
+- The administrative CGI is live production, not a scratch interface. Browser requests that mint, hold, or bind change the production database.
+
+## Public resolver
+
+The intended public form is `https://digilib.uwm.edu/ark:/77981/<noid>`, resolved from the `where` binding by Apache `RewriteMap`. The administrative CGI and the public resolver are separate paths: a successful `fetch` does not prove that public redirection works. Test both after Apache or resolver changes.
 
 ## Noid Commands:
 
